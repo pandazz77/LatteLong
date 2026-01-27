@@ -1,6 +1,6 @@
 #pragma once
 
-#include "LGraphicsPath.h"
+#include "LGraphicsPath.hpp"
 #include "LineString.h"
 
 #include "GeometryConvertor.h"

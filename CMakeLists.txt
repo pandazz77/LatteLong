@@ -6,6 +6,11 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
 set(SRCS
+    src/Structs/LatLng.cpp
+    src/Structs/LineString.cpp
+    src/Structs/Polygon.cpp
+    src/Structs/Bounds.cpp
+
     src/Projection/GeometryConvertor.cpp
 
     src/Graphics/Items/LGraphicsItem.cpp
@@ -18,10 +23,10 @@ set(SRCS
 )
 
 set(HDRS
-    include/Structs/LatLng.hpp
-    include/Structs/LineString.hpp
-    include/Structs/Polygon.hpp
-    include/Structs/Bounds.hpp
+    include/Structs/LatLng.h
+    include/Structs/LineString.h
+    include/Structs/Polygon.h
+    include/Structs/Bounds.h
 
     include/Projection/GeometryConvertor.h
     include/Projection/IProjection.hpp
