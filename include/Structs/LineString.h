@@ -1,6 +1,6 @@
 #pragma once
 
-#include "LatLng.hpp"
+#include "LatLng.h"
 #include <QVector>
 
 class LineString: public QVector<LatLng>{

@@ -6,29 +6,48 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
 set(SRCS
+    src/Structs/LatLng.cpp
+    src/Structs/LineString.cpp
+    src/Structs/Polygon.cpp
+    src/Structs/Bounds.cpp
+
     src/Projection/GeometryConvertor.cpp
+    src/Projection/SimpleProjection.cpp
+    src/Projection/Mercator.cpp
+    src/Projection/SphericalMercator.cpp
+
+    src/Graphics/View/MapGraphicsScene.cpp
+    src/Graphics/View/MapGraphicsView.cpp
+
+    src/Graphics/Items/LGraphicsItem.cpp
+    src/Graphics/Items/LGraphicsShape.cpp
+    src/Graphics/Items/LGraphicsPath.cpp
+    src/Graphics/Items/LGraphicsLineString.cpp
+    src/Graphics/Items/LGraphicsPolygon.cpp
 
     src/main.cpp
 )
 
 set(HDRS
-    include/Structs/LatLng.hpp
-    include/Structs/LineString.hpp
-    include/Structs/Polygon.hpp
-    include/Structs/Bounds.hpp
+    include/Structs/LatLng.h
+    include/Structs/LineString.h
+    include/Structs/Polygon.h
+    include/Structs/Bounds.h
 
     include/Projection/GeometryConvertor.h
     include/Projection/IProjection.hpp
-    include/Projection/SimpleProjection.hpp
-    include/Projection/Mercator.hpp
-    include/Projection/SphericalMercator.hpp
+    include/Projection/SimpleProjection.h
+    include/Projection/Mercator.h
+    include/Projection/SphericalMercator.h
 
-    include/Graphics/View/MapGraphicsScene.hpp
-    include/Graphics/Items/LGraphicsItem.hpp
-    include/Graphics/Items/LGraphicsShape.hpp
-    include/Graphics/Items/LGraphicsPath.hpp
-    include/Graphics/Items/LGraphicsLineString.hpp
-    include/Graphics/Items/LGraphicsPolygon.hpp
+    include/Graphics/View/MapGraphicsScene.h
+    include/Graphics/View/MapGraphicsView.h
+    
+    include/Graphics/Items/LGraphicsItem.h
+    include/Graphics/Items/LGraphicsShape.h
+    include/Graphics/Items/LGraphicsPath.h
+    include/Graphics/Items/LGraphicsLineString.h
+    include/Graphics/Items/LGraphicsPolygon.h
 )
 
 include_directories(

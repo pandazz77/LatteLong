@@ -1,7 +1,8 @@
 #pragma once
 
-#include "LatLng.hpp"
-#include "Bounds.hpp"
+#include "LatLng.h"
+#include "Bounds.h"
+
 #include <QPointF>
 
 class IProjection{

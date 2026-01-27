@@ -3,8 +3,8 @@
 #include <QPainterPath>
 
 #include "IProjection.hpp"
-#include "LineString.hpp"
-#include "Polygon.hpp"
+#include "LineString.h"
+#include "Polygon.h"
 
 namespace GeometryConvertor{
     QPointF point(const LatLng &latlng, const IProjection *proj);
