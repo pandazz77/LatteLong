@@ -2,7 +2,7 @@
 
 #include <QGraphicsScene>
 #include "IProjection.hpp"
-#include "SimpleProjection.hpp"
+#include "SimpleProjection.h"
 #include "GeometryConvertor.h"
 
 class MapGraphicsScene: public QGraphicsScene{

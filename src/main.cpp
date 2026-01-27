@@ -5,9 +5,9 @@
 #include "LGraphicsPolygon.h"
 #include "MapGraphicsView.h"
 
-#include "SimpleProjection.hpp"
-#include "SphericalMercator.hpp"
-#include "Mercator.hpp"
+#include "SimpleProjection.h"
+#include "SphericalMercator.h"
+#include "Mercator.h"
 
 QColor randomColor(){
     return QColor(

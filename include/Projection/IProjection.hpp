@@ -2,6 +2,7 @@
 
 #include "LatLng.h"
 #include "Bounds.h"
+
 #include <QPointF>
 
 class IProjection{

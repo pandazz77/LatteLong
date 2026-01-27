@@ -12,6 +12,9 @@ set(SRCS
     src/Structs/Bounds.cpp
 
     src/Projection/GeometryConvertor.cpp
+    src/Projection/SimpleProjection.cpp
+    src/Projection/Mercator.cpp
+    src/Projection/SphericalMercator.cpp
 
     src/Graphics/View/MapGraphicsScene.cpp
     src/Graphics/View/MapGraphicsView.cpp
@@ -33,9 +36,9 @@ set(HDRS
 
     include/Projection/GeometryConvertor.h
     include/Projection/IProjection.hpp
-    include/Projection/SimpleProjection.hpp
-    include/Projection/Mercator.hpp
-    include/Projection/SphericalMercator.hpp
+    include/Projection/SimpleProjection.h
+    include/Projection/Mercator.h
+    include/Projection/SphericalMercator.h
 
     include/Graphics/View/MapGraphicsScene.h
     include/Graphics/View/MapGraphicsView.h
