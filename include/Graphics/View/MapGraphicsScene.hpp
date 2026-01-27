@@ -6,7 +6,7 @@
 
 class MapGraphicsScene: public QGraphicsScene{
     public:
-        MapGraphicsScene(IProjection *proj, QObject *parent=nullptr) : QGraphicsScene(parent), proj(proj) {
+        MapGraphicsScene(IProjection *proj, QObject *parent=nullptr) : QGraphicsScene(parent), _proj(proj) {
             
         }
 
@@ -19,9 +19,15 @@ class MapGraphicsScene: public QGraphicsScene{
         }
 
         const IProjection *projection(){
-            return proj;
+            return _proj;
+        }
+
+        void setProjection(IProjection *proj){
+            if(_proj)
+                delete _proj;
+            _proj = proj;
         }
 
     private:
-        IProjection *proj = nullptr;
+        IProjection *_proj = nullptr; // TODO: make unique
 };

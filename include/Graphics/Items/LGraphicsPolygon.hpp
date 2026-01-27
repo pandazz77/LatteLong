@@ -25,5 +25,4 @@ class LGraphicsPolygon: public LGraphicsPath{
 
     private:
         Polygon _poly;
-        bool dirty = false;
 };

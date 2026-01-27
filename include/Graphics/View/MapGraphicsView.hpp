@@ -22,6 +22,10 @@ class MapGraphicsView: public QGraphicsView{
             return dynamic_cast<MapGraphicsScene*>(QGraphicsView::scene());
         }
 
+        void setProjection(IProjection *proj){
+            scene()->setProjection(proj);
+        }
+
     protected:
         void wheelEvent(QWheelEvent *event) override {
             int sign = event->angleDelta().y() < 0 ? -1 : 1;

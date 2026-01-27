@@ -7,5 +7,6 @@ class IProjection{
     public:
         virtual QPointF project(const LatLng &latlng) const = 0;
         virtual LatLng unproject(const QPointF &point) const = 0;
+        virtual ~IProjection() {}
 };
 

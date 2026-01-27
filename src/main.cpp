@@ -1,9 +1,10 @@
 #include <QApplication>
+#include <QRandomGenerator>
+#include <QTimer>
 
 #include "LGraphicsLineString.hpp"
 #include "LGraphicsPolygon.hpp"
 #include "MapGraphicsView.hpp"
-#include <QRandomGenerator>
 
 #include "SimpleProjection.hpp"
 #include "SphericalMercator.hpp"
@@ -124,7 +125,10 @@ int main(int argc, char *argv[]){
     greenland->addTo(view);
     antarctica->addTo(view);
     
-    
+    QTimer::singleShot(3000,[view](){
+        view->setProjection(new SimpleProjection);
+        qDebug() << "Projection switched!";
+    });
 
     view->show();
 
