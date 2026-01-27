@@ -3,6 +3,7 @@
 #include <QTimer>
 
 #include "LGraphicsPolygon.h"
+#include "LGraphicsPixmap.h"
 #include "MapGraphicsView.h"
 
 #include "SimpleProjection.h"
@@ -17,10 +18,29 @@ QColor randomColor(){
     );
 }
 
+// returns pixmap and offset
+QPair<QPixmap,QPointF> markerPixmap(){
+    QPixmap pixmap(12,12);
+    pixmap.fill(Qt::transparent);
+
+    QPainter painter(&pixmap);
+    QPen pen(randomColor(),1);
+    QBrush brush(randomColor());
+
+    painter.setPen(pen);
+    painter.setBrush(brush);
+    painter.drawEllipse(pixmap.rect());
+
+    return {
+        pixmap,
+        {pixmap.height()/2.0,pixmap.width()/2.0}
+    };
+}
+
 int main(int argc, char *argv[]){
     QApplication app(argc,argv);
 
-    MapGraphicsView *view = new MapGraphicsView(new MapGraphicsScene(new SphericalMercator));
+    MapGraphicsView *view = new MapGraphicsView(new MapGraphicsScene(new SimpleProjection));
 
     LGraphicsPolygon *water = new LGraphicsPolygon({{
         {90,180},
@@ -108,6 +128,10 @@ int main(int argc, char *argv[]){
         {-78,-180}
     }});
 
+    auto marker = markerPixmap();
+    LGraphicsPixmap *saintP = new LGraphicsPixmap(marker.first);
+    saintP->setOffset(marker.second);
+
     eurasia->setBrush(randomColor());
     africa->setBrush(randomColor());
     northAmerica->setBrush(randomColor());
@@ -123,11 +147,15 @@ int main(int argc, char *argv[]){
     australia->addTo(view);
     greenland->addTo(view);
     antarctica->addTo(view);
+    saintP->addTo(view);
+    saintP->setPos({59.94324044769604,30.304845135274263});
+
+    // eurasia->setPos(50,50);
     
-    QTimer::singleShot(3000,[view](){
-        view->setProjection(new SimpleProjection);
-        qDebug() << "Projection switched!";
-    });
+    // QTimer::singleShot(3000,[view](){
+    //     view->setProjection(new SimpleProjection);
+    //     qDebug() << "Projection switched!";
+    // });
 
     view->show();
 

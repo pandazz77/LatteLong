@@ -24,6 +24,7 @@ set(SRCS
     src/Graphics/Items/LGraphicsPath.cpp
     src/Graphics/Items/LGraphicsLineString.cpp
     src/Graphics/Items/LGraphicsPolygon.cpp
+    src/Graphics/Items/LGraphicsPixmap.cpp
 
     src/main.cpp
 )
@@ -48,6 +49,7 @@ set(HDRS
     include/Graphics/Items/LGraphicsPath.h
     include/Graphics/Items/LGraphicsLineString.h
     include/Graphics/Items/LGraphicsPolygon.h
+    include/Graphics/Items/LGraphicsPixmap.h
 )
 
 include_directories(

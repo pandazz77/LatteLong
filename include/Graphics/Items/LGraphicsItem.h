@@ -16,4 +16,10 @@ class LGraphicsItem : public QGraphicsItem{
 
         void addTo(MapGraphicsScene *scene);
         void addTo(MapGraphicsView *view);
+
+        void setPos(const QPointF &pos) = delete;
+        void setPos(qreal x, qreal y) = delete;
+
+        QPointF pos() const = delete;
+        QPointF scenePos() const = delete;
 };
