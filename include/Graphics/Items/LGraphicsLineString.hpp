@@ -14,6 +14,7 @@ class LGraphicsLineString: public LGraphicsPath{
 
         void setLine(const LineString &line){
             _line = line;
+            updatePathCache();
         }
 
         LineString line() const{
