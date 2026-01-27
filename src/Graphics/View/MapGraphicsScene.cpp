@@ -1,5 +1,8 @@
 #include "MapGraphicsScene.h"
 
+#include "SimpleProjection.h"
+#include "GeometryConvertor.h"
+
 MapGraphicsScene::MapGraphicsScene(IProjection *proj, QObject *parent) : QGraphicsScene(parent), _proj(proj) {
             
 }

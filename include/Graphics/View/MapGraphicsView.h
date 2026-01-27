@@ -3,7 +3,6 @@
 #include <QGraphicsView>
 #include <QWheelEvent>
 #include "MapGraphicsScene.h"
-#include "GeometryConvertor.h"
 
 
 class MapGraphicsView: public QGraphicsView{

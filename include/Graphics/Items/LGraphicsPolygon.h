@@ -2,7 +2,6 @@
 
 #include "LGraphicsPath.h"
 #include "Polygon.h"
-#include "GeometryConvertor.h"
 
 class LGraphicsPolygon: public LGraphicsPath{
     public:

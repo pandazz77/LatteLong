@@ -2,9 +2,6 @@
 
 #include "IProjection.hpp"
 
-#define _USE_MATH_DEFINES
-#include <math.h>
-
 // Used by the EPSG:3857 CRS
 class SphericalMercator: public IProjection{
     public:

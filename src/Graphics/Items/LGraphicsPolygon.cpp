@@ -1,5 +1,5 @@
 #include "LGraphicsPolygon.h"
-
+#include "GeometryConvertor.h"
 
 LGraphicsPolygon::LGraphicsPolygon(LGraphicsItem *parent) : LGraphicsPath(parent) {}
 LGraphicsPolygon::LGraphicsPolygon(const Polygon &poly, LGraphicsItem *parent) : LGraphicsPolygon(parent){

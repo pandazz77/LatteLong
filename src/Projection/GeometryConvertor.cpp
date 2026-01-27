@@ -1,7 +1,5 @@
 #include "GeometryConvertor.h"
 
-#include "GeometryConvertor.h"
-
 QPointF GeometryConvertor::point(const LatLng &pos,const IProjection *proj){
     return proj->project(pos);
 }

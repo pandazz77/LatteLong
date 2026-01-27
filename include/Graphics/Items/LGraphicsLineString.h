@@ -3,8 +3,6 @@
 #include "LGraphicsPath.h"
 #include "LineString.h"
 
-#include "GeometryConvertor.h"
-
 class LGraphicsLineString: public LGraphicsPath{
     public:
         LGraphicsLineString(LGraphicsItem *parent = nullptr);

@@ -1,5 +1,7 @@
 #include "LGraphicsLineString.h"
 
+#include "GeometryConvertor.h"
+
 LGraphicsLineString::LGraphicsLineString(LGraphicsItem *parent) : LGraphicsPath(parent) {}
 LGraphicsLineString::LGraphicsLineString(const LineString &line, LGraphicsItem *parent) : LGraphicsLineString(parent){
     setLine(line);

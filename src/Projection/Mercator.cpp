@@ -1,5 +1,7 @@
 #include "Mercator.h"
 
+#include <cmath>
+
 QPointF Mercator::project(const LatLng &latlng) const {
     double x, y;
     const double d = M_PI / 180,

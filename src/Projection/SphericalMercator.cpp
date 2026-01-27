@@ -1,5 +1,8 @@
 #include "SphericalMercator.h"
 
+#define _USE_MATH_DEFINES
+#include <cmath>
+
 QPointF SphericalMercator::project(const LatLng &latlng) const {
     const double d = M_PI / 180,
     max = MAX_LATITUDE,
