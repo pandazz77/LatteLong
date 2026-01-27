@@ -3,6 +3,7 @@
 #include <QGraphicsScene>
 #include "IProjection.hpp"
 #include "SimpleProjection.hpp"
+#include "GeometryConvertor.h"
 
 class MapGraphicsScene: public QGraphicsScene{
     public:
@@ -27,6 +28,7 @@ class MapGraphicsScene: public QGraphicsScene{
                 delete _proj;
             _proj = proj;
             update();
+            setSceneRect(GeometryConvertor::bounds(_proj->bounds(),_proj));
         }
 
     private:
