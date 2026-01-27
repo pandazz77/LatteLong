@@ -40,19 +40,7 @@ class LGraphicsPath : public LGraphicsShape {
             return projectedPath().contains(point);
         }
 
-        virtual void sceneChanged() override{
-            updatePathCache();
-        }
-
-        void updatePathCache(){
-            if(projection())
-                projectedPathCache = path(projection());
-        }
-
         QPainterPath projectedPath() const {
-            return projectedPathCache;
+            return path(projection());
         }
-
-    private:
-        QPainterPath projectedPathCache;
 };

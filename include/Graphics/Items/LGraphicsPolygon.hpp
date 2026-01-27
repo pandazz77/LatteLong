@@ -13,7 +13,6 @@ class LGraphicsPolygon: public LGraphicsPath{
 
         void setPolygon(const Polygon &poly){
             _poly = poly;
-            updatePathCache();
         }
 
         Polygon polygon() const{
