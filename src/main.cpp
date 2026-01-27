@@ -2,8 +2,7 @@
 #include <QRandomGenerator>
 #include <QTimer>
 
-#include "LGraphicsLineString.hpp"
-#include "LGraphicsPolygon.hpp"
+#include "LGraphicsPolygon.h"
 #include "MapGraphicsView.hpp"
 
 #include "SimpleProjection.hpp"

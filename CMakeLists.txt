@@ -8,6 +8,12 @@ set(CMAKE_AUTOUIC ON)
 set(SRCS
     src/Projection/GeometryConvertor.cpp
 
+    src/Graphics/Items/LGraphicsItem.cpp
+    src/Graphics/Items/LGraphicsShape.cpp
+    src/Graphics/Items/LGraphicsPath.cpp
+    src/Graphics/Items/LGraphicsLineString.cpp
+    src/Graphics/Items/LGraphicsPolygon.cpp
+
     src/main.cpp
 )
 
@@ -24,11 +30,11 @@ set(HDRS
     include/Projection/SphericalMercator.hpp
 
     include/Graphics/View/MapGraphicsScene.hpp
-    include/Graphics/Items/LGraphicsItem.hpp
-    include/Graphics/Items/LGraphicsShape.hpp
-    include/Graphics/Items/LGraphicsPath.hpp
-    include/Graphics/Items/LGraphicsLineString.hpp
-    include/Graphics/Items/LGraphicsPolygon.hpp
+    include/Graphics/Items/LGraphicsItem.h
+    include/Graphics/Items/LGraphicsShape.h
+    include/Graphics/Items/LGraphicsPath.h
+    include/Graphics/Items/LGraphicsLineString.h
+    include/Graphics/Items/LGraphicsPolygon.h
 )
 
 include_directories(
