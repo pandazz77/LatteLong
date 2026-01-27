@@ -2,7 +2,7 @@
 
 class LatLng{
     public:
-        LatLng(double lat, double lng) : _lat(lat), _lng(lng) {}
+        LatLng(double lat = 0, double lng = 0) : _lat(lat), _lng(lng) {}
 
         void setLat(double lat){
             _lat = lat;
@@ -25,6 +25,6 @@ class LatLng{
         double _lng;
 };
 
-inline LatLng LngLat(double lng, double lat){
+inline LatLng LngLat(double lng = 0, double lat = 0){
     return LatLng(lat,lng);
 }

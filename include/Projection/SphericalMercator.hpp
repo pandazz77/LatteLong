@@ -29,6 +29,13 @@ class SphericalMercator: public IProjection{
             );
         }
 
+        Bounds bounds() const override {
+            return {
+                LatLng(85.06,180),
+                LatLng(-85.06,-180)
+            };
+        }
+
         static constexpr double EARTH_RADIUS = 6378137;
         static constexpr double MAX_LATITUDE = 85.0511287798;
 

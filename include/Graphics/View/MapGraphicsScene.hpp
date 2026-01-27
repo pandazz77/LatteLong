@@ -26,6 +26,7 @@ class MapGraphicsScene: public QGraphicsScene{
             if(_proj)
                 delete _proj;
             _proj = proj;
+            update();
         }
 
     private:

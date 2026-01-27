@@ -39,6 +39,13 @@ QPainterPath GeometryConvertor::polygon(const Polygon &poly, const IProjection *
     return polyPath;
 }
 
+QRectF GeometryConvertor::bounds(const Bounds &bounds, const IProjection *proj){
+    return QRectF(
+        point(bounds.northEast,proj),
+        point(bounds.southWest,proj)
+    );
+}
+
 bool GeometryConvertor::isClockwise(const QPolygonF &polygon) {
     double sum = 0.0;
     int n = polygon.size();

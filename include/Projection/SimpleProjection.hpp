@@ -11,4 +11,11 @@ class SimpleProjection: public IProjection{
         LatLng unproject(const QPointF &point) const override{
             return LatLng(point.y(),point.x());
         }
+
+        Bounds bounds() const override {
+            return {
+                LatLng(90,180),
+                LatLng(-90,-180)
+            };
+        }
 };

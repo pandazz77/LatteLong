@@ -40,6 +40,13 @@ class Mercator: public IProjection{
             );
         }
 
+        Bounds bounds() const override{
+            return {
+                LatLng{84,180},
+                LatLng{-80,-180}
+            };
+        }
+
         static constexpr double EARTH_RADIUS = 6378137;
         static constexpr double EARTH_RADIUS_MINOR = 6356752.314245179;
 

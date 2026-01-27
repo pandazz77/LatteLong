@@ -15,6 +15,7 @@ set(HDRS
     include/Structs/LatLng.hpp
     include/Structs/LineString.hpp
     include/Structs/Polygon.hpp
+    include/Structs/Bounds.hpp
 
     include/Projection/GeometryConvertor.h
     include/Projection/IProjection.hpp

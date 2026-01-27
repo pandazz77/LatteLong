@@ -3,6 +3,7 @@
 #include <QGraphicsView>
 #include <QWheelEvent>
 #include "MapGraphicsScene.hpp"
+#include "GeometryConvertor.h"
 
 
 class MapGraphicsView: public QGraphicsView{
@@ -11,6 +12,7 @@ class MapGraphicsView: public QGraphicsView{
             scale(1,-1); // rotate Y axis
 
             setDragMode(QGraphicsView::ScrollHandDrag);
+            fitBounds();
         }
 
         MapGraphicsView(QWidget *parent = nullptr) : MapGraphicsView(new MapGraphicsScene(new SimpleProjection,nullptr), parent) { // wtf. TODO: deal with construction args
@@ -24,6 +26,15 @@ class MapGraphicsView: public QGraphicsView{
 
         void setProjection(IProjection *proj){
             scene()->setProjection(proj);
+            fitBounds();
+        }
+
+        const IProjection *projection(){
+            return scene()->projection();
+        }
+
+        void fitBounds(){
+            fitInView(GeometryConvertor::bounds(projection()->bounds(),projection()));
         }
 
     protected:

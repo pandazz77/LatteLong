@@ -11,6 +11,7 @@ namespace GeometryConvertor{
     QVector<QPointF> simpleLine(const LineString &line, const IProjection *proj);
     QPainterPath line(const LineString &line, const IProjection *proj);
     QPainterPath polygon(const Polygon &poly, const IProjection *proj);
+    QRectF bounds(const Bounds &bounds, const IProjection *proj);
     
     bool isClockwise(const QPolygonF &poly);
     QPolygonF reversePolygon(const QPolygonF &poly);
