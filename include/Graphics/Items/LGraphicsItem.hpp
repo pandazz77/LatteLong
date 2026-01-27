@@ -14,9 +14,7 @@ class LGraphicsItem : public QGraphicsItem{
         }
 
         const IProjection *projection() const {
-            if(scene())
-                return scene()->projection();
-            return nullptr;
+            return scene()->projection();
         }
 
         void addTo(MapGraphicsScene *scene) {
@@ -26,12 +24,4 @@ class LGraphicsItem : public QGraphicsItem{
         void addTo(MapGraphicsView *view) {
             addTo(view->scene());
         }
-
-    protected:
-        virtual QVariant itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant &value){
-            if(QGraphicsItem::ItemSceneChange)
-                sceneChanged();
-            return QGraphicsItem::itemChange(change,value);
-        }
-        virtual void sceneChanged() = 0;
 };
