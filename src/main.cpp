@@ -5,6 +5,10 @@
 #include "MapGraphicsView.hpp"
 #include <QRandomGenerator>
 
+#include "SimpleProjection.hpp"
+#include "SphericalMercator.hpp"
+#include "Mercator.hpp"
+
 QColor randomColor(){
     return QColor(
         QRandomGenerator::global()->bounded(255),
@@ -16,7 +20,7 @@ QColor randomColor(){
 int main(int argc, char *argv[]){
     QApplication app(argc,argv);
 
-    MapGraphicsView *view = new MapGraphicsView();
+    MapGraphicsView *view = new MapGraphicsView(new MapGraphicsScene(new SphericalMercator));
 
     LGraphicsPolygon *water = new LGraphicsPolygon({{
         {90,180},

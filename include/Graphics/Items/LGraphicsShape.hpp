@@ -6,7 +6,7 @@ class LGraphicsShape : public LGraphicsItem
 {
 public:
     LGraphicsShape(LGraphicsItem *parent = nullptr) : LGraphicsItem(parent), _pen(Qt::black), _brush(Qt::NoBrush){
-
+        _pen.setCosmetic(true);
     }
 
     void setPen(const QPen &pen){

@@ -19,6 +19,8 @@ set(HDRS
     include/Projection/GeometryConvertor.h
     include/Projection/IProjection.hpp
     include/Projection/SimpleProjection.hpp
+    include/Projection/Mercator.hpp
+    include/Projection/SphericalMercator.hpp
 
     include/Graphics/View/MapGraphicsScene.hpp
     include/Graphics/Items/LGraphicsItem.hpp

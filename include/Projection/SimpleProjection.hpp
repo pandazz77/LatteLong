@@ -2,6 +2,7 @@
 
 #include "IProjection.hpp"
 
+// Equirectangular projection / Used by the EPSG:4326 CRS
 class SimpleProjection: public IProjection{
     public:
         QPointF project(const LatLng &latlng) const override{
