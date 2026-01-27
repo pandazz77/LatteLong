@@ -3,7 +3,7 @@
 #include <QTimer>
 
 #include "LGraphicsPolygon.h"
-#include "MapGraphicsView.hpp"
+#include "MapGraphicsView.h"
 
 #include "SimpleProjection.hpp"
 #include "SphericalMercator.hpp"

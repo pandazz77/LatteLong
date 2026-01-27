@@ -13,6 +13,9 @@ set(SRCS
 
     src/Projection/GeometryConvertor.cpp
 
+    src/Graphics/View/MapGraphicsScene.cpp
+    src/Graphics/View/MapGraphicsView.cpp
+
     src/Graphics/Items/LGraphicsItem.cpp
     src/Graphics/Items/LGraphicsShape.cpp
     src/Graphics/Items/LGraphicsPath.cpp
@@ -34,7 +37,9 @@ set(HDRS
     include/Projection/Mercator.hpp
     include/Projection/SphericalMercator.hpp
 
-    include/Graphics/View/MapGraphicsScene.hpp
+    include/Graphics/View/MapGraphicsScene.h
+    include/Graphics/View/MapGraphicsView.h
+    
     include/Graphics/Items/LGraphicsItem.h
     include/Graphics/Items/LGraphicsShape.h
     include/Graphics/Items/LGraphicsPath.h

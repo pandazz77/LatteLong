@@ -3,8 +3,8 @@
 #include <QGraphicsItem>
 
 #include "IProjection.hpp"
-#include "MapGraphicsScene.hpp"
-#include "MapGraphicsView.hpp"
+#include "MapGraphicsScene.h"
+#include "MapGraphicsView.h"
 
 class LGraphicsItem : public QGraphicsItem{
     public:
