@@ -6,10 +6,10 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
 set(SRCS
-    src/Structs/LatLng.cpp
-    src/Structs/LineString.cpp
-    src/Structs/Polygon.cpp
-    src/Structs/Bounds.cpp
+    src/Geometry/LatLng.cpp
+    src/Geometry/LineString.cpp
+    src/Geometry/Polygon.cpp
+    src/Geometry/Bounds.cpp
 
     src/Projection/GeometryConvertor.cpp
     src/Projection/SimpleProjection.cpp
@@ -30,10 +30,10 @@ set(SRCS
 )
 
 set(HDRS
-    include/Structs/LatLng.h
-    include/Structs/LineString.h
-    include/Structs/Polygon.h
-    include/Structs/Bounds.h
+    include/Geometry/LatLng.h
+    include/Geometry/LineString.h
+    include/Geometry/Polygon.h
+    include/Geometry/Bounds.h
 
     include/Projection/GeometryConvertor.h
     include/Projection/IProjection.hpp
@@ -53,7 +53,7 @@ set(HDRS
 )
 
 include_directories(
-    include/Structs
+    include/Geometry
     include/Projection
     include/Graphics/Items
     include/Graphics/View
