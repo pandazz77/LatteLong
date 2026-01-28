@@ -19,7 +19,34 @@ QColor randomColor(){
 }
 
 // returns pixmap and offset
-QPair<QPixmap,QPointF> markerPixmap(){
+QPair<QPixmap,QPointF> triangleMarker(){
+    constexpr int SIZE = 20;
+    QPixmap pixmap(SIZE,SIZE);
+    pixmap.fill(Qt::transparent);
+
+    QPainter painter(&pixmap);
+    QPen pen(randomColor(),1);
+    QBrush brush(randomColor());
+
+    painter.setPen(pen);
+    painter.setBrush(brush);
+    QRect rect = pixmap.rect();
+    QPoint anchor{SIZE/2,SIZE};
+    QPolygon triangle{
+        rect.topLeft(),
+        rect.topRight(),
+        anchor
+    };
+    painter.drawPolygon(triangle);
+
+    return {
+        pixmap,
+        -anchor
+    };
+}
+
+// returns pixmap and offset
+QPair<QPixmap,QPointF> circleMarker(){
     QPixmap pixmap(12,12);
     pixmap.fill(Qt::transparent);
 
@@ -33,7 +60,7 @@ QPair<QPixmap,QPointF> markerPixmap(){
 
     return {
         pixmap,
-        {pixmap.height()/2.0,pixmap.width()/2.0}
+        {-pixmap.height()/2.0,-pixmap.width()/2.0}
     };
 }
 
@@ -128,7 +155,7 @@ int main(int argc, char *argv[]){
         {-78,-180}
     }});
 
-    auto marker = markerPixmap();
+    auto marker = triangleMarker();
     LGraphicsPixmap *saintP = new LGraphicsPixmap(marker.first);
     saintP->setOffset(marker.second);
 
