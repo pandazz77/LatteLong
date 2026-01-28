@@ -5,7 +5,9 @@ MapGraphicsScene *LGraphicsItem::scene() const {
 }
 
 const IProjection *LGraphicsItem::projection() const {
-    return scene()->projection();
+    if(scene())
+        return scene()->projection();
+    return nullptr;
 }
 
 void LGraphicsItem::addTo(MapGraphicsScene *scene) {
@@ -14,4 +16,12 @@ void LGraphicsItem::addTo(MapGraphicsScene *scene) {
 
 void LGraphicsItem::addTo(MapGraphicsView *view) {
     addTo(view->scene());
+}
+
+void LGraphicsItem::sceneChanged(){
+
+}
+
+void LGraphicsItem::projectionChanged(){
+    
 }

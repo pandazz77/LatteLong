@@ -18,8 +18,8 @@ class LGraphicsPixmap : public LGraphicsItem {
         void setPixmap(const QPixmap &pixmap);
         QPixmap pixmap() const;
 
-        void setPos(const LatLng &pos);
-        LatLng pos() const;
+        void setGeoPos(const LatLng &pos);
+        LatLng geoPos() const;
 
         void setOffset(const QPointF &offset);
         void setOffset(qreal x, qreal y);
@@ -30,8 +30,13 @@ class LGraphicsPixmap : public LGraphicsItem {
         QPainterPath shape() const override;
         bool contains(const QPointF &point) const override;
 
+    protected:
+        virtual void sceneChanged() override;
+        virtual void projectionChanged() override;
+
     private:
         QPointF projectedPos() const;
+        void updateScenePos();
 
     private:
         QPixmap _pixmap;

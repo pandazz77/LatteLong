@@ -40,7 +40,7 @@ QPair<QPixmap,QPointF> markerPixmap(){
 int main(int argc, char *argv[]){
     QApplication app(argc,argv);
 
-    MapGraphicsView *view = new MapGraphicsView(new MapGraphicsScene(new SimpleProjection));
+    MapGraphicsView *view = new MapGraphicsView(new MapGraphicsScene(new SphericalMercator));
 
     LGraphicsPolygon *water = new LGraphicsPolygon({{
         {90,180},
@@ -148,14 +148,12 @@ int main(int argc, char *argv[]){
     greenland->addTo(view);
     antarctica->addTo(view);
     saintP->addTo(view);
-    saintP->setPos({59.94324044769604,30.304845135274263});
-
-    // eurasia->setPos(50,50);
+    saintP->setGeoPos({59.94324044769604,30.304845135274263});
     
-    // QTimer::singleShot(3000,[view](){
-    //     view->setProjection(new SimpleProjection);
-    //     qDebug() << "Projection switched!";
-    // });
+    QTimer::singleShot(3000,[view](){
+        view->setProjection(new SimpleProjection);
+        qDebug() << "Projection switched!";
+    });
 
     view->show();
 

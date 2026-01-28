@@ -2,11 +2,11 @@
 
 #include "GeometryConvertor.h"
 
-LGraphicsPixmap::LGraphicsPixmap(LGraphicsItem *parent) : LGraphicsItem(parent){
-    setFlags(QGraphicsItem::ItemIgnoresTransformations); // DOESNT WORK
+LGraphicsPixmap::LGraphicsPixmap(const QPixmap &pixmap, LGraphicsItem *parent) : LGraphicsItem(parent), _pixmap(pixmap), _offset(0, 0) {
+    QGraphicsItem::setFlag(QGraphicsItem::ItemIgnoresTransformations,true);
 }
 
-LGraphicsPixmap::LGraphicsPixmap(const QPixmap &pixmap, LGraphicsItem *parent) : LGraphicsItem(parent), _pixmap(pixmap), _offset(0, 0) {
+LGraphicsPixmap::LGraphicsPixmap(LGraphicsItem *parent) : LGraphicsItem(parent){
 
 }
 
@@ -35,22 +35,17 @@ QPointF LGraphicsPixmap::offset() const {
 }
 
 QRectF LGraphicsPixmap::boundingRect() const {
-    QPointF projected = projectedPos();
+    if(_pixmap.isNull()) return QRectF();
 
-    return QRectF(projected.x() - _offset.x(),
-                  projected.y() - _offset.y(),
-                  _pixmap.width(),
-                  _pixmap.height());
+    return QRectF(_offset, _pixmap.size());
 }
 
 void LGraphicsPixmap::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
     Q_UNUSED(option)
     Q_UNUSED(widget)
 
-    QPointF pos = boundingRect().topLeft();
-
     if (!_pixmap.isNull()) {
-        painter->drawPixmap(pos, _pixmap);
+        painter->drawPixmap(_offset, _pixmap);
     }
 }
 
@@ -64,14 +59,25 @@ bool LGraphicsPixmap::contains(const QPointF &point) const {
     return boundingRect().contains(point);
 }
 
-void LGraphicsPixmap::setPos(const LatLng &pos){
+void LGraphicsPixmap::setGeoPos(const LatLng &pos){
     _pos = pos;
+    if(scene()){
+        updateScenePos();
+    }
 }
 
-LatLng LGraphicsPixmap::pos() const{
+LatLng LGraphicsPixmap::geoPos() const{
     return _pos;
 }
 
-QPointF LGraphicsPixmap::projectedPos() const {
-    return GeometryConvertor::point(_pos,projection());
+void LGraphicsPixmap::sceneChanged() {
+    updateScenePos();
+}
+
+void LGraphicsPixmap::projectionChanged() {
+    updateScenePos();
+}
+
+void LGraphicsPixmap::updateScenePos() {
+    setPos(GeometryConvertor::point(_pos,projection()));
 }
