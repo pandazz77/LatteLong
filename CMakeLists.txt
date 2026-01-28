@@ -2,8 +2,6 @@ cmake_minimum_required(VERSION 3.5)
 project(LatteLong)
 
 set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTORCC ON)
-set(CMAKE_AUTOUIC ON)
 
 set(SRCS
     src/Geometry/LatLng.cpp
@@ -25,8 +23,6 @@ set(SRCS
     src/Graphics/Items/GraphicsLineString.cpp
     src/Graphics/Items/GraphicsPolygon.cpp
     src/Graphics/Items/GraphicsPixmap.cpp
-
-    src/main.cpp
 )
 
 set(HDRS
@@ -52,7 +48,7 @@ set(HDRS
     include/Graphics/Items/GraphicsPixmap.h
 )
 
-include_directories(
+SET(INCLUDES
     include/Geometry
     include/Projection
     include/Graphics/Items
@@ -71,5 +67,11 @@ SET(LIBS
     Qt6::Widgets
 )
 
-add_executable(${PROJECT_NAME} ${SRCS} ${HDRS})
+add_library(${PROJECT_NAME} ${SRCS} ${HDRS})
 target_link_libraries(${PROJECT_NAME} ${LIBS})
+target_include_directories(${PROJECT_NAME} PUBLIC ${INCLUDES})
+
+option(BUILD_TESTS "Build tests" ON)
+if(BUILD_TESTS)
+    add_subdirectory(./tests)
+endif()
