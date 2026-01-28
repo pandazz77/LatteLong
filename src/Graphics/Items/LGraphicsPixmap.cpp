@@ -58,26 +58,3 @@ QPainterPath LGraphicsPixmap::shape() const {
 bool LGraphicsPixmap::contains(const QPointF &point) const {
     return boundingRect().contains(point);
 }
-
-void LGraphicsPixmap::setGeoPos(const LatLng &pos){
-    _pos = pos;
-    if(scene()){
-        updateScenePos();
-    }
-}
-
-LatLng LGraphicsPixmap::geoPos() const{
-    return _pos;
-}
-
-void LGraphicsPixmap::sceneChanged() {
-    updateScenePos();
-}
-
-void LGraphicsPixmap::projectionChanged() {
-    updateScenePos();
-}
-
-void LGraphicsPixmap::updateScenePos() {
-    setPos(GeometryConvertor::point(_pos,projection()));
-}

@@ -148,7 +148,7 @@ int main(int argc, char *argv[]){
     greenland->addTo(view);
     antarctica->addTo(view);
     saintP->addTo(view);
-    saintP->setGeoPos({59.94324044769604,30.304845135274263});
+    saintP->setGPos({59.94324044769604,30.304845135274263});
     
     QTimer::singleShot(3000,[view](){
         view->setProjection(new SimpleProjection);
