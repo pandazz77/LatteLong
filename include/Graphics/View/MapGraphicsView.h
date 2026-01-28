@@ -21,4 +21,5 @@ class MapGraphicsView: public QGraphicsView{
 
     protected:
         void wheelEvent(QWheelEvent *event) override;
+        void showEvent(QShowEvent *event) override;
 };

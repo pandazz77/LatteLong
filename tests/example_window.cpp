@@ -3,7 +3,7 @@
 #include <QTimer>
 #include <QVBoxLayout>
 #include <QComboBox>
-#include <QHash>
+#include <QMap>
 
 #include "GraphicsPolygon.h"
 #include "GraphicsPixmap.h"
@@ -85,7 +85,7 @@ class ProjectionsFabric{
         }
 
     private:
-        QHash<QString,std::function<IProjection*()>> factoryMap;
+        QMap<QString,std::function<IProjection*()>> factoryMap;
 };
 
 int main(int argc, char *argv[]){
@@ -103,6 +103,7 @@ int main(int argc, char *argv[]){
     projFabric.regProjection<Mercator>("Mercator");
     projFabric.regProjection<SphericalMercator>("Spherical mercator");
     projectionsCombo->addItems(projFabric.projections());
+    projectionsCombo->setCurrentText("Simple projection");
     projectionsCombo->connect(projectionsCombo,&QComboBox::currentTextChanged,[&](QString projName){
         view->setProjection(projFabric.get(projName));
     });

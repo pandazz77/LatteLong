@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(LatteLong)
+project(LatteLong VERSION 0.0.1)
 
 set(CMAKE_AUTOMOC ON)
 

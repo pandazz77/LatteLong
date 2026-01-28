@@ -7,7 +7,6 @@ MapGraphicsView::MapGraphicsView(MapGraphicsScene *scene, QWidget *parent) : QGr
     scale(1,-1); // rotate Y axis
 
     setDragMode(QGraphicsView::ScrollHandDrag);
-    fitBounds();
 }
 
 MapGraphicsView::MapGraphicsView(QWidget *parent) 
@@ -38,4 +37,10 @@ void MapGraphicsView::wheelEvent(QWheelEvent *event) {
     double zoom = 1+sign*zoomFactor;
     
     scale(zoom,zoom);
+}
+
+void MapGraphicsView::showEvent(QShowEvent *event) {
+    fitBounds();
+
+    QGraphicsView::showEvent(event);
 }
