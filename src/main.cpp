@@ -18,7 +18,7 @@ QColor randomColor(){
     );
 }
 
-// returns pixmap and offset
+// returns pixmap and anchor
 QPair<QPixmap,QPointF> triangleMarker(){
     constexpr int SIZE = 20;
     QPixmap pixmap(SIZE,SIZE);
@@ -41,11 +41,11 @@ QPair<QPixmap,QPointF> triangleMarker(){
 
     return {
         pixmap,
-        -anchor
+        anchor
     };
 }
 
-// returns pixmap and offset
+// returns pixmap and anchor
 QPair<QPixmap,QPointF> circleMarker(){
     QPixmap pixmap(12,12);
     pixmap.fill(Qt::transparent);
@@ -60,7 +60,7 @@ QPair<QPixmap,QPointF> circleMarker(){
 
     return {
         pixmap,
-        {-pixmap.height()/2.0,-pixmap.width()/2.0}
+        {pixmap.height()/2.0,pixmap.width()/2.0}
     };
 }
 
@@ -157,7 +157,7 @@ int main(int argc, char *argv[]){
 
     auto marker = triangleMarker();
     LGraphicsPixmap *saintP = new LGraphicsPixmap(marker.first);
-    saintP->setOffset(marker.second);
+    saintP->setAnchor(marker.second);
 
     eurasia->setBrush(randomColor());
     africa->setBrush(randomColor());

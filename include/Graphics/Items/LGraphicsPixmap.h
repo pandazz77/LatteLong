@@ -19,8 +19,11 @@ class LGraphicsPixmap : public LGraphicsItem {
         QPixmap pixmap() const;
 
         void setOffset(const QPointF &offset);
-        void setOffset(qreal x, qreal y);
         QPointF offset() const;
+
+        // anchor is negative offset
+        void setAnchor(const QPointF &anchor);
+        QPointF anchor();
 
         QRectF boundingRect() const override;
         void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr) override;

@@ -26,13 +26,18 @@ void LGraphicsPixmap::setOffset(const QPointF &offset) {
     _offset = offset;
 }
 
-void LGraphicsPixmap::setOffset(qreal x, qreal y) {
-    setOffset(QPointF(x, y));
-}
-
 QPointF LGraphicsPixmap::offset() const {
     return _offset;
 }
+
+void LGraphicsPixmap::setAnchor(const QPointF &anchor){
+    setOffset(-anchor);
+}
+
+QPointF LGraphicsPixmap::anchor(){
+    return -offset();
+}
+
 
 QRectF LGraphicsPixmap::boundingRect() const {
     if(_pixmap.isNull()) return QRectF();
