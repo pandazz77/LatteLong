@@ -1,6 +1,9 @@
 #include <QApplication>
 #include <QRandomGenerator>
 #include <QTimer>
+#include <QVBoxLayout>
+#include <QComboBox>
+#include <QHash>
 
 #include "GraphicsPolygon.h"
 #include "GraphicsPixmap.h"
@@ -66,10 +69,44 @@ QPair<QPixmap,QPointF> circleMarker(){
     };
 }
 
+class ProjectionsFabric{
+    public:
+        template<typename Proj>
+        void regProjection(QString projName){
+            factoryMap[projName] = [](){ return new Proj(); };
+        }
+
+        IProjection *get(QString projName) const{
+            return factoryMap[projName]();
+        }
+
+        QStringList projections() const {
+            return factoryMap.keys();
+        }
+
+    private:
+        QHash<QString,std::function<IProjection*()>> factoryMap;
+};
+
 int main(int argc, char *argv[]){
     QApplication app(argc,argv);
+    QWidget *window = new QWidget;
+    window->resize(800,600);
+    window->setLayout(new QHBoxLayout(window));
 
-    MapGraphicsView *view = new MapGraphicsView(new MapGraphicsScene(new SphericalMercator));
+    MapGraphicsView *view = new MapGraphicsView(new MapGraphicsScene(),window);
+    window->layout()->addWidget(view);
+
+    QComboBox *projectionsCombo = new QComboBox(window);
+    ProjectionsFabric projFabric;
+    projFabric.regProjection<SimpleProjection>("Simple projection");
+    projFabric.regProjection<Mercator>("Mercator");
+    projFabric.regProjection<SphericalMercator>("Spherical mercator");
+    projectionsCombo->addItems(projFabric.projections());
+    projectionsCombo->connect(projectionsCombo,&QComboBox::currentTextChanged,[&](QString projName){
+        view->setProjection(projFabric.get(projName));
+    });
+    window->layout()->addWidget(projectionsCombo);
 
     GraphicsPolygon *water = new GraphicsPolygon(waterPoly);
     water->setBrush(Qt::blue);
@@ -105,13 +142,8 @@ int main(int argc, char *argv[]){
     greenland->addTo(view);
     antarctica->addTo(view);
     saintP->addTo(view);
-    
-    QTimer::singleShot(3000,[view](){
-        view->setProjection(new SimpleProjection);
-        qDebug() << "Projection switched!";
-    });
 
-    view->show();
+    window->show();
 
     return app.exec();
 }
