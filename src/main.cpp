@@ -3,6 +3,7 @@
 #include <QTimer>
 
 #include "LGraphicsPolygon.h"
+#include "LGraphicsPixmap.h"
 #include "MapGraphicsView.h"
 
 #include "SimpleProjection.h"
@@ -15,6 +16,52 @@ QColor randomColor(){
         QRandomGenerator::global()->bounded(255),
         QRandomGenerator::global()->bounded(255)
     );
+}
+
+// returns pixmap and anchor
+QPair<QPixmap,QPointF> triangleMarker(){
+    constexpr int SIZE = 20;
+    QPixmap pixmap(SIZE,SIZE);
+    pixmap.fill(Qt::transparent);
+
+    QPainter painter(&pixmap);
+    QPen pen(randomColor(),1);
+    QBrush brush(randomColor());
+
+    painter.setPen(pen);
+    painter.setBrush(brush);
+    QRect rect = pixmap.rect();
+    QPoint anchor{SIZE/2,SIZE};
+    QPolygon triangle{
+        rect.topLeft(),
+        rect.topRight(),
+        anchor
+    };
+    painter.drawPolygon(triangle);
+
+    return {
+        pixmap,
+        anchor
+    };
+}
+
+// returns pixmap and anchor
+QPair<QPixmap,QPointF> circleMarker(){
+    QPixmap pixmap(12,12);
+    pixmap.fill(Qt::transparent);
+
+    QPainter painter(&pixmap);
+    QPen pen(randomColor(),1);
+    QBrush brush(randomColor());
+
+    painter.setPen(pen);
+    painter.setBrush(brush);
+    painter.drawEllipse(pixmap.rect());
+
+    return {
+        pixmap,
+        {pixmap.height()/2.0,pixmap.width()/2.0}
+    };
 }
 
 int main(int argc, char *argv[]){
@@ -108,6 +155,10 @@ int main(int argc, char *argv[]){
         {-78,-180}
     }});
 
+    auto marker = triangleMarker();
+    LGraphicsPixmap *saintP = new LGraphicsPixmap(marker.first);
+    saintP->setAnchor(marker.second);
+
     eurasia->setBrush(randomColor());
     africa->setBrush(randomColor());
     northAmerica->setBrush(randomColor());
@@ -123,6 +174,8 @@ int main(int argc, char *argv[]){
     australia->addTo(view);
     greenland->addTo(view);
     antarctica->addTo(view);
+    saintP->addTo(view);
+    saintP->setGPos({59.94324044769604,30.304845135274263});
     
     QTimer::singleShot(3000,[view](){
         view->setProjection(new SimpleProjection);

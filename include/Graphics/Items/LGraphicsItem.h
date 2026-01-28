@@ -11,9 +11,24 @@ class LGraphicsItem : public QGraphicsItem{
         using QGraphicsItem::QGraphicsItem;
 
         MapGraphicsScene *scene() const;
-
         const IProjection *projection() const;
 
         void addTo(MapGraphicsScene *scene);
         void addTo(MapGraphicsView *view);
+
+        virtual void sceneChanged();
+        virtual void projectionChanged();
+
+        void setGPos(const LatLng &geoPos); // set get position
+        LatLng gPos() const; // get geo position
+
+    protected:
+        using QGraphicsItem::setPos;
+        using QGraphicsItem::setX;
+        using QGraphicsItem::setY;
+
+        void updateScenePos();
+
+    private:
+        LatLng _geoPos;
 };
