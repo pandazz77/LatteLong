@@ -1,42 +1,42 @@
-#include "LGraphicsItem.h"
+#include "GraphicsItem.h"
 #include "GeometryConvertor.h"
 
-MapGraphicsScene *LGraphicsItem::scene() const {
+MapGraphicsScene *GraphicsItem::scene() const {
     return dynamic_cast<MapGraphicsScene*>(QGraphicsItem::scene());
 }
 
-const IProjection *LGraphicsItem::projection() const {
+const IProjection *GraphicsItem::projection() const {
     if(scene())
         return scene()->projection();
     return nullptr;
 }
 
-void LGraphicsItem::addTo(MapGraphicsScene *scene) {
+void GraphicsItem::addTo(MapGraphicsScene *scene) {
     scene->addItem(this);
 }
 
-void LGraphicsItem::addTo(MapGraphicsView *view) {
+void GraphicsItem::addTo(MapGraphicsView *view) {
     addTo(view->scene());
 }
 
-void LGraphicsItem::sceneChanged(){
+void GraphicsItem::sceneChanged(){
     updateScenePos();
 }
 
-void LGraphicsItem::projectionChanged(){
+void GraphicsItem::projectionChanged(){
     updateScenePos();
 }
 
-void LGraphicsItem::updateScenePos(){
+void GraphicsItem::updateScenePos(){
     setPos(GeometryConvertor::point(_geoPos,projection()));
 }
 
-void LGraphicsItem::setGPos(const LatLng &geoPos){
+void GraphicsItem::setGPos(const LatLng &geoPos){
     _geoPos = geoPos;
     if(scene())
         updateScenePos();
 }
 
-LatLng LGraphicsItem::gPos() const {
+LatLng GraphicsItem::gPos() const {
     return _geoPos;
 };

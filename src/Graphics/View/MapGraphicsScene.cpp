@@ -2,7 +2,7 @@
 
 #include "SimpleProjection.h"
 #include "GeometryConvertor.h"
-#include "LGraphicsItem.h"
+#include "GraphicsItem.h"
 
 MapGraphicsScene::MapGraphicsScene(IProjection *proj, QObject *parent) : QGraphicsScene(parent), _proj(proj) {
             
@@ -27,12 +27,12 @@ void MapGraphicsScene::setProjection(IProjection *proj){
     update();
     setSceneRect(GeometryConvertor::bounds(_proj->bounds(),_proj));
     for(QGraphicsItem *item: items()){
-        LGraphicsItem *litem = dynamic_cast<LGraphicsItem*>(item);
+        GraphicsItem *litem = dynamic_cast<GraphicsItem*>(item);
         litem->projectionChanged();
     }
 }
 
-void MapGraphicsScene::addItem(LGraphicsItem *item){
+void MapGraphicsScene::addItem(GraphicsItem *item){
     QGraphicsScene::addItem(item);
     item->sceneChanged();
 }

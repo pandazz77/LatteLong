@@ -1,12 +1,12 @@
 #pragma once
 
-#include "LGraphicsPath.h"
+#include "GraphicsPath.h"
 #include "Polygon.h"
 
-class LGraphicsPolygon: public LGraphicsPath{
+class GraphicsPolygon: public GraphicsPath{
     public:
-        LGraphicsPolygon(LGraphicsItem *parent = nullptr);
-        LGraphicsPolygon(const Polygon &poly, LGraphicsItem *parent = nullptr);
+        GraphicsPolygon(GraphicsItem *parent = nullptr);
+        GraphicsPolygon(const Polygon &poly, GraphicsItem *parent = nullptr);
 
         void setPolygon(const Polygon &poly);
         Polygon polygon() const;

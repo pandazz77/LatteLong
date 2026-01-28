@@ -1,12 +1,12 @@
 #pragma once
 
-#include "LGraphicsPath.h"
+#include "GraphicsPath.h"
 #include "LineString.h"
 
-class LGraphicsLineString: public LGraphicsPath{
+class GraphicsLineString: public GraphicsPath{
     public:
-        LGraphicsLineString(LGraphicsItem *parent = nullptr);
-        LGraphicsLineString(const LineString &line, LGraphicsItem *parent = nullptr);
+        GraphicsLineString(GraphicsItem *parent = nullptr);
+        GraphicsLineString(const LineString &line, GraphicsItem *parent = nullptr);
 
         void setLine(const LineString &line);
         LineString line() const;

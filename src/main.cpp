@@ -2,8 +2,8 @@
 #include <QRandomGenerator>
 #include <QTimer>
 
-#include "LGraphicsPolygon.h"
-#include "LGraphicsPixmap.h"
+#include "GraphicsPolygon.h"
+#include "GraphicsPixmap.h"
 #include "MapGraphicsView.h"
 
 #include "SimpleProjection.h"
@@ -69,7 +69,7 @@ int main(int argc, char *argv[]){
 
     MapGraphicsView *view = new MapGraphicsView(new MapGraphicsScene(new SphericalMercator));
 
-    LGraphicsPolygon *water = new LGraphicsPolygon({{
+    GraphicsPolygon *water = new GraphicsPolygon({{
         {90,180},
         {-90,180},
         {-90,-180},
@@ -80,7 +80,7 @@ int main(int argc, char *argv[]){
     water->setZValue(-1);
     water->addTo(view);
     
-    LGraphicsPolygon *eurasia = new LGraphicsPolygon({{
+    GraphicsPolygon *eurasia = new GraphicsPolygon({{
         {76.50781849872428, 103.39301162991251},
         {49.47925216395771, -1.327077670647867},
         {35.59509010109741, -6.069119450296284},
@@ -94,7 +94,7 @@ int main(int argc, char *argv[]){
         {76.50781849872428, 103.39301162991251}
     }});
 
-    LGraphicsPolygon *africa = new LGraphicsPolygon({{
+    GraphicsPolygon *africa = new GraphicsPolygon({{
         {32.9836001676598, 9.342516333559956},
         {15.03835122749787, -16.343543306200075},
         {2.567746004855138, 9.342516333559956},
@@ -104,7 +104,7 @@ int main(int argc, char *argv[]){
         {32.9836001676598, 9.342516333559956}
     }});
 
-    LGraphicsPolygon *northAmerica = new LGraphicsPolygon({{
+    GraphicsPolygon *northAmerica = new GraphicsPolygon({{
         {69.57428548514784, -162.9516683269849},
         {57.02025455095847, -157.41928625072848},
         {57.6599967782054, -135.6849280940087},
@@ -114,7 +114,7 @@ int main(int argc, char *argv[]){
         {69.57428548514784, -162.9516683269849}
     }});
 
-    LGraphicsPolygon *southAmerica = new LGraphicsPolygon({{
+    GraphicsPolygon *southAmerica = new GraphicsPolygon({{
         {10.802603071948738, -70.87702377215247},
         {-6.113503742736924, -79.5707670348402},
         {-55.25921846226369, -70.87702377215247},
@@ -122,7 +122,7 @@ int main(int argc, char *argv[]){
         {10.802603071948738, -70.87702377215247}
     }});
 
-    LGraphicsPolygon *australia = new LGraphicsPolygon({{
+    GraphicsPolygon *australia = new GraphicsPolygon({{
         {-11.96476992059074, 131.84526230780085},
         {-27.174538377546632, 113.66743548581644},
         {-38.1240841178109, 144.4907070535288},
@@ -130,7 +130,7 @@ int main(int argc, char *argv[]){
         {-11.96476992059074, 131.84526230780085}
     }});
 
-    LGraphicsPolygon *greenland = new LGraphicsPolygon({{
+    GraphicsPolygon *greenland = new GraphicsPolygon({{
         {79.45527732360159, -19.504904492632335},
         {83.43688720357682, -26.617967162103923},
         {81.1788420689013, -64.94947154759201},
@@ -140,7 +140,7 @@ int main(int argc, char *argv[]){
         {79.45527732360159, -19.504904492632335}
     }});
 
-    LGraphicsPolygon *antarctica = new LGraphicsPolygon({{
+    GraphicsPolygon *antarctica = new GraphicsPolygon({{
         {-78,-180},
         {-90,-180},
         {-90,180},
@@ -156,7 +156,7 @@ int main(int argc, char *argv[]){
     }});
 
     auto marker = triangleMarker();
-    LGraphicsPixmap *saintP = new LGraphicsPixmap(marker.first);
+    GraphicsPixmap *saintP = new GraphicsPixmap(marker.first);
     saintP->setAnchor(marker.second);
 
     eurasia->setBrush(randomColor());

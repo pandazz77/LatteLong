@@ -1,12 +1,12 @@
 #pragma once
 
-#include "LGraphicsShape.h"
+#include "GraphicsShape.h"
 #include <QPainter>
 #include <QPainterPath>
 
-class LGraphicsPath : public LGraphicsShape {
+class GraphicsPath : public GraphicsShape {
     public:
-        LGraphicsPath(LGraphicsItem *parent = nullptr);
+        GraphicsPath(GraphicsItem *parent = nullptr);
 
         virtual QPainterPath path(const IProjection *proj) const = 0;
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "LGraphicsItem.h"
+#include "GraphicsItem.h"
 
 #include <QPixmap>
 #include <QPainter>
@@ -9,11 +9,11 @@
 #include <QStyleOptionGraphicsItem>
 #include <QWidget>
 
-class LGraphicsPixmap : public LGraphicsItem {
+class GraphicsPixmap : public GraphicsItem {
     public:
 
-        explicit LGraphicsPixmap(LGraphicsItem *parent = nullptr);
-        explicit LGraphicsPixmap(const QPixmap &pixmap, LGraphicsItem *parent = nullptr);
+        explicit GraphicsPixmap(GraphicsItem *parent = nullptr);
+        explicit GraphicsPixmap(const QPixmap &pixmap, GraphicsItem *parent = nullptr);
 
         void setPixmap(const QPixmap &pixmap);
         QPixmap pixmap() const;

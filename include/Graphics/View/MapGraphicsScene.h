@@ -3,7 +3,7 @@
 #include <QGraphicsScene>
 #include "IProjection.hpp"
 
-class LGraphicsItem;
+class GraphicsItem;
 
 class MapGraphicsScene: public QGraphicsScene{
     public:
@@ -16,7 +16,7 @@ class MapGraphicsScene: public QGraphicsScene{
         void setProjection(IProjection *proj);
 
         void addItem(QGraphicsItem *item) = delete;
-        void addItem(LGraphicsItem *item);
+        void addItem(GraphicsItem *item);
 
     private:
         IProjection *_proj = nullptr; // TODO: make unique

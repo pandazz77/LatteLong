@@ -6,7 +6,7 @@
 #include "MapGraphicsScene.h"
 #include "MapGraphicsView.h"
 
-class LGraphicsItem : public QGraphicsItem{
+class GraphicsItem : public QGraphicsItem{
     public:
         using QGraphicsItem::QGraphicsItem;
 

@@ -1,10 +1,10 @@
-#include "LGraphicsItem.h"
+#include "GraphicsItem.h"
 #include <QPen>
 #include <QBrush>
 
-class LGraphicsShape : public LGraphicsItem {
+class GraphicsShape : public GraphicsItem {
     public:
-        LGraphicsShape(LGraphicsItem *parent = nullptr);
+        GraphicsShape(GraphicsItem *parent = nullptr);
 
         void setPen(const QPen &pen);
         void setBrush(const QBrush &brush);
@@ -13,7 +13,7 @@ class LGraphicsShape : public LGraphicsItem {
         QBrush brush() const;
 
     protected:
-        LGraphicsShape(QAbstractGraphicsShapeItemPrivate &dd, LGraphicsItem *parent = nullptr);
+        GraphicsShape(QAbstractGraphicsShapeItemPrivate &dd, GraphicsItem *parent = nullptr);
 
     private:
         QPen _pen;

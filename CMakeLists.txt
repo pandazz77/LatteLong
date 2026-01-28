@@ -19,12 +19,12 @@ set(SRCS
     src/Graphics/View/MapGraphicsScene.cpp
     src/Graphics/View/MapGraphicsView.cpp
 
-    src/Graphics/Items/LGraphicsItem.cpp
-    src/Graphics/Items/LGraphicsShape.cpp
-    src/Graphics/Items/LGraphicsPath.cpp
-    src/Graphics/Items/LGraphicsLineString.cpp
-    src/Graphics/Items/LGraphicsPolygon.cpp
-    src/Graphics/Items/LGraphicsPixmap.cpp
+    src/Graphics/Items/GraphicsItem.cpp
+    src/Graphics/Items/GraphicsShape.cpp
+    src/Graphics/Items/GraphicsPath.cpp
+    src/Graphics/Items/GraphicsLineString.cpp
+    src/Graphics/Items/GraphicsPolygon.cpp
+    src/Graphics/Items/GraphicsPixmap.cpp
 
     src/main.cpp
 )
@@ -44,12 +44,12 @@ set(HDRS
     include/Graphics/View/MapGraphicsScene.h
     include/Graphics/View/MapGraphicsView.h
     
-    include/Graphics/Items/LGraphicsItem.h
-    include/Graphics/Items/LGraphicsShape.h
-    include/Graphics/Items/LGraphicsPath.h
-    include/Graphics/Items/LGraphicsLineString.h
-    include/Graphics/Items/LGraphicsPolygon.h
-    include/Graphics/Items/LGraphicsPixmap.h
+    include/Graphics/Items/GraphicsItem.h
+    include/Graphics/Items/GraphicsShape.h
+    include/Graphics/Items/GraphicsPath.h
+    include/Graphics/Items/GraphicsLineString.h
+    include/Graphics/Items/GraphicsPolygon.h
+    include/Graphics/Items/GraphicsPixmap.h
 )
 
 include_directories(

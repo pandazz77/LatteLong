@@ -1,17 +1,17 @@
-#include "LGraphicsPath.h"
+#include "GraphicsPath.h"
 
 
-LGraphicsPath::LGraphicsPath(LGraphicsItem *parent): LGraphicsShape(parent){
+GraphicsPath::GraphicsPath(GraphicsItem *parent): GraphicsShape(parent){
 
 }
 
-QRectF LGraphicsPath::boundingRect() const {
+QRectF GraphicsPath::boundingRect() const {
     return projectedPath().boundingRect()
             .adjusted(-pen().widthF()/2, -pen().widthF()/2,
                         pen().widthF()/2, pen().widthF()/2);
 }
 
-void LGraphicsPath::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
+void GraphicsPath::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
     Q_UNUSED(option)
     Q_UNUSED(widget)
 
@@ -20,7 +20,7 @@ void LGraphicsPath::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
     painter->drawPath(projectedPath());
 }
 
-QPainterPath LGraphicsPath::shape() const {
+QPainterPath GraphicsPath::shape() const {
     QPainterPathStroker stroker;
     stroker.setWidth(pen().widthF());
     stroker.setCapStyle(pen().capStyle());
@@ -29,10 +29,10 @@ QPainterPath LGraphicsPath::shape() const {
 }
 
 
-bool LGraphicsPath::contains(const QPointF &point) const {
+bool GraphicsPath::contains(const QPointF &point) const {
     return projectedPath().contains(point);
 }
 
-QPainterPath LGraphicsPath::projectedPath() const {
+QPainterPath GraphicsPath::projectedPath() const {
     return path(projection());
 }
