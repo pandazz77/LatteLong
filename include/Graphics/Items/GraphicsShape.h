@@ -1,21 +1,22 @@
-#include "GraphicsItem.h"
+#pragma once
+
 #include <QPen>
 #include <QBrush>
 
-class GraphicsShape : public GraphicsItem {
+class IGraphicsLine{
     public:
-        GraphicsShape(GraphicsItem *parent = nullptr);
-
-        void setPen(const QPen &pen);
-        void setBrush(const QBrush &brush);
-
-        QPen pen() const;
-        QBrush brush() const;
-
-    protected:
-        GraphicsShape(QAbstractGraphicsShapeItemPrivate &dd, GraphicsItem *parent = nullptr);
+        IGraphicsLine();
+        virtual void setPen(const QPen &pen);
+        virtual QPen pen() const;
 
     private:
         QPen _pen;
+};
+
+class IGraphicsShape{
+    public:
+        virtual void setBrush(const QBrush &brush);
+        virtual QBrush brush() const;
+    private:
         QBrush _brush;
 };

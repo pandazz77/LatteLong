@@ -50,6 +50,7 @@ set(HDRS
     include/Graphics/Items/GraphicsPolygon.h
     include/Graphics/Items/GraphicsPixmap.h
     include/Graphics/Items/GraphicsGroup.h
+    include/Graphics/Items/TypedGraphicsGroup.hpp
 )
 
 SET(INCLUDES

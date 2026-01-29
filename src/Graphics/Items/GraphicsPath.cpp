@@ -1,7 +1,7 @@
 #include "GraphicsPath.h"
 
 
-GraphicsPath::GraphicsPath(GraphicsItem *parent): GraphicsShape(parent){
+GraphicsPath::GraphicsPath(GraphicsItem *parent): GraphicsItem(parent){
 
 }
 
@@ -16,7 +16,6 @@ void GraphicsPath::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
     Q_UNUSED(widget)
 
     painter->setPen(pen());
-    painter->setBrush(brush());
     painter->drawPath(projectedPath());
 }
 

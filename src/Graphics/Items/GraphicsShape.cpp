@@ -1,22 +1,21 @@
 #include "GraphicsShape.h"
 
-
-GraphicsShape::GraphicsShape(GraphicsItem *parent) : GraphicsItem(parent), _pen(Qt::black), _brush(Qt::NoBrush){
+IGraphicsLine::IGraphicsLine(){
     _pen.setCosmetic(true);
 }
 
-void GraphicsShape::setPen(const QPen &pen){
+void IGraphicsLine::setPen(const QPen &pen){
     _pen = pen;
 }
 
-void GraphicsShape::setBrush(const QBrush &brush){
-    _brush = brush;
-}
-
-QPen GraphicsShape::pen() const {
+QPen IGraphicsLine::pen() const {
     return _pen;
 }
 
-QBrush GraphicsShape::brush() const {
+void IGraphicsShape::setBrush(const QBrush &brush){
+    _brush = brush;
+}
+
+QBrush IGraphicsShape::brush() const {
     return _brush;
 }

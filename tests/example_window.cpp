@@ -5,6 +5,7 @@
 #include <QComboBox>
 #include <QMap>
 
+#include "GraphicsLineString.h"
 #include "GraphicsPolygon.h"
 #include "GraphicsPixmap.h"
 #include "GraphicsGroup.h"
@@ -148,6 +149,37 @@ int main(int argc, char *argv[]){
     // america->add(northAmerica);
     // america->add(southAmerica);
     america->addTo(view);
+
+    // ==================== SAMPLE GEOMETRIES
+    marker = circleMarker();
+    GraphicsPixmap *point = new GraphicsPixmap(marker.first);
+    point->setGPos(pointTest);
+    point->setAnchor(marker.second);
+
+    GraphicsLineString *line = new GraphicsLineString(lineTest);
+    line->setPen(randomColor());
+
+    GraphicsPolygon *poly = new GraphicsPolygon(polyTest);
+    poly->setPen(randomColor());
+    poly->setBrush(randomColor());
+
+    // HERE MUST ME MULTIPOINT DEFINITION
+
+    GraphicsMultiLineString *multiLine = new GraphicsMultiLineString(multiLineTest);
+    multiLine->setPen(randomColor());
+
+    GraphicsMultiPolygon *multiPoly = new GraphicsMultiPolygon(multiPolyTest);
+    multiPoly->setPen(randomColor());
+    multiPoly->setBrush(randomColor());
+
+    point->addTo(view);
+    line->addTo(view);
+    poly->addTo(view); // WARNING: INTERRIORS DOESNT WORK
+    // HERE MUST ME MULTIPOINT
+    multiLine->addTo(view);
+    multiPoly->addTo(view);
+
+    // ====================
 
     window->show();
 
