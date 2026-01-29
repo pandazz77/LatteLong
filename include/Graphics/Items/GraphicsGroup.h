@@ -7,7 +7,7 @@ class GraphicsGroup : public GraphicsItem {
         GraphicsGroup(GraphicsItem* parent = nullptr);
 
         void add(GraphicsItem *item);
-        void remove(GraphicsItem *item);
+        void remove(GraphicsItem *item, bool removeFromScene = true);
 
         QList<GraphicsItem*> items() const;
 

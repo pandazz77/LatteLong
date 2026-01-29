@@ -148,8 +148,6 @@ int main(int argc, char *argv[]){
     america->add(southAmerica);
     america->addTo(view);
 
-    america->remove(northAmerica); // WARNING: DOESNT WORK WELL
-
     window->show();
 
     return app.exec();

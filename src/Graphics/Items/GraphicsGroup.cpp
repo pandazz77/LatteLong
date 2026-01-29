@@ -9,8 +9,10 @@ void GraphicsGroup::add(GraphicsItem *item) {
     item->setParentItem(this);
 }
 
-void GraphicsGroup::remove(GraphicsItem *item){
+void GraphicsGroup::remove(GraphicsItem *item, bool removeFromScene){
     item->setParentItem(nullptr);
+    if(removeFromScene && scene()) 
+        scene()->removeItem(item);
 }
 
 QList<GraphicsItem*> GraphicsGroup::items() const {
