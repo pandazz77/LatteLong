@@ -8,6 +8,7 @@ set(SRCS
     src/Geometry/LineString.cpp
     src/Geometry/Polygon.cpp
     src/Geometry/Bounds.cpp
+    src/Geometry/MultiGeometry.cpp
 
     src/Projection/GeometryConvertor.cpp
     src/Projection/SimpleProjection.cpp
@@ -23,6 +24,7 @@ set(SRCS
     src/Graphics/Items/GraphicsLineString.cpp
     src/Graphics/Items/GraphicsPolygon.cpp
     src/Graphics/Items/GraphicsPixmap.cpp
+    src/Graphics/Items/GraphicsGroup.cpp
 )
 
 set(HDRS
@@ -30,6 +32,7 @@ set(HDRS
     include/Geometry/LineString.h
     include/Geometry/Polygon.h
     include/Geometry/Bounds.h
+    include/Geometry/MultiGeometry.h
 
     include/Projection/GeometryConvertor.h
     include/Projection/IProjection.hpp
@@ -46,6 +49,7 @@ set(HDRS
     include/Graphics/Items/GraphicsLineString.h
     include/Graphics/Items/GraphicsPolygon.h
     include/Graphics/Items/GraphicsPixmap.h
+    include/Graphics/Items/GraphicsGroup.h
 )
 
 SET(INCLUDES

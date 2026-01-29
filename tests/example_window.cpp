@@ -7,6 +7,7 @@
 
 #include "GraphicsPolygon.h"
 #include "GraphicsPixmap.h"
+#include "GraphicsGroup.h"
 #include "MapGraphicsView.h"
 
 #include "SimpleProjection.h"
@@ -137,12 +138,17 @@ int main(int argc, char *argv[]){
 
     eurasia->addTo(view);
     africa->addTo(view);
-    northAmerica->addTo(view);
-    southAmerica->addTo(view);
     australia->addTo(view);
     greenland->addTo(view);
     antarctica->addTo(view);
     saintP->addTo(view);
+
+    GraphicsGroup *america = new GraphicsGroup();
+    america->add(northAmerica);
+    america->add(southAmerica);
+    america->addTo(view);
+
+    america->remove(northAmerica); // WARNING: DOESNT WORK WELL
 
     window->show();
 
