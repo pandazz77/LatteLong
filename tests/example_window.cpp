@@ -25,6 +25,16 @@ QColor randomColor(){
     );
 }
 
+QPen randomizedPen(QPen pen){
+    pen.setColor(randomColor());
+    return pen;
+}
+
+QBrush randomizedBrush(QBrush brush){
+    brush.setColor(randomColor());
+    return brush;
+}
+
 // returns pixmap and anchor
 QPair<QPixmap,QPointF> triangleMarker(){
     constexpr int SIZE = 20;
@@ -159,20 +169,20 @@ int main(int argc, char *argv[]){
     point->setAnchor(marker.second);
 
     GraphicsLineString *line = new GraphicsLineString(lineTest);
-    line->setPen(randomColor());
+    line->setPen(randomizedPen(line->pen()));
 
     GraphicsPolygon *poly = new GraphicsPolygon(polyTest);
-    poly->setPen(randomColor());
-    poly->setBrush(randomColor());
+    poly->setPen(randomizedPen(poly->pen()));
+    poly->setBrush(randomizedBrush(poly->brush()));
 
     // HERE MUST ME MULTIPOINT DEFINITION
 
     GraphicsMultiLineString *multiLine = new GraphicsMultiLineString(multiLineTest);
-    multiLine->setPen(randomColor());
+    multiLine->setPen(randomizedPen(multiLine->pen()));
 
     GraphicsMultiPolygon *multiPoly = new GraphicsMultiPolygon(multiPolyTest);
-    multiPoly->setPen(randomColor());
-    multiPoly->setBrush(randomColor());
+    multiPoly->setPen(randomizedPen(multiPoly->pen()));
+    multiPoly->setBrush(randomizedBrush(multiPoly->brush()));
 
     point->addTo(view);
     line->addTo(view);

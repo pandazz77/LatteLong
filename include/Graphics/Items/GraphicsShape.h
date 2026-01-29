@@ -15,8 +15,10 @@ class IGraphicsLine{
 
 class IGraphicsShape{
     public:
+        IGraphicsShape();
         virtual void setBrush(const QBrush &brush);
         virtual QBrush brush() const;
+        
     private:
         QBrush _brush;
 };

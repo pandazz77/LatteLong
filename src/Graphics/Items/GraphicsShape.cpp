@@ -12,6 +12,12 @@ QPen IGraphicsLine::pen() const {
     return _pen;
 }
 
+// ===========================
+
+IGraphicsShape::IGraphicsShape(){
+    _brush.setStyle(Qt::SolidPattern);
+}
+
 void IGraphicsShape::setBrush(const QBrush &brush){
     _brush = brush;
 }
