@@ -5,9 +5,12 @@
 class GraphicsGroup : public GraphicsItem {
     public:
         GraphicsGroup(GraphicsItem* parent = nullptr);
+        GraphicsGroup(QVector<GraphicsItem*> items, GraphicsItem* parent = nullptr);
 
         void add(GraphicsItem *item);
+        void add(QVector<GraphicsItem*> items);
         void remove(GraphicsItem *item, bool removeFromScene = true);
+        void remove(QVector<GraphicsItem*> items, bool removeFromScene = true);
 
         QList<GraphicsItem*> items() const;
 

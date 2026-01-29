@@ -5,14 +5,26 @@ GraphicsGroup::GraphicsGroup(GraphicsItem* parent) : GraphicsItem(parent) {
     setFlag(QGraphicsItem::ItemHasNoContents, true);
 }
 
+GraphicsGroup::GraphicsGroup(QVector<GraphicsItem*> items, GraphicsItem* parent) : GraphicsGroup(parent){
+    add(items);
+}
+
 void GraphicsGroup::add(GraphicsItem *item) {
     item->setParentItem(this);
+}
+
+void GraphicsGroup::add(QVector<GraphicsItem*> items){
+    for(auto item: items) add(item);
 }
 
 void GraphicsGroup::remove(GraphicsItem *item, bool removeFromScene){
     item->setParentItem(nullptr);
     if(removeFromScene && scene()) 
         scene()->removeItem(item);
+}
+
+void GraphicsGroup::remove(QVector<GraphicsItem*> items, bool removeFromScene){
+    for(auto item: items) remove(item,removeFromScene);
 }
 
 QList<GraphicsItem*> GraphicsGroup::items() const {

@@ -143,9 +143,10 @@ int main(int argc, char *argv[]){
     antarctica->addTo(view);
     saintP->addTo(view);
 
-    GraphicsGroup *america = new GraphicsGroup();
-    america->add(northAmerica);
-    america->add(southAmerica);
+    GraphicsGroup *america = new GraphicsGroup({northAmerica,southAmerica});
+    // OR:
+    // america->add(northAmerica);
+    // america->add(southAmerica);
     america->addTo(view);
 
     window->show();
