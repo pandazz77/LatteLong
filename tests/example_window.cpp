@@ -90,6 +90,8 @@ class ProjectionsFabric{
         QMap<QString,std::function<IProjection*()>> factoryMap;
 };
 
+#include "GeometryConvertor.h"
+
 int main(int argc, char *argv[]){
     QApplication app(argc,argv);
     QWidget *window = new QWidget;
@@ -174,7 +176,7 @@ int main(int argc, char *argv[]){
 
     point->addTo(view);
     line->addTo(view);
-    poly->addTo(view); // WARNING: INTERRIORS DOESNT WORK
+    poly->addTo(view);
     // HERE MUST ME MULTIPOINT
     multiLine->addTo(view);
     multiPoly->addTo(view);
