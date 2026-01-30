@@ -2,6 +2,9 @@
 
 #include "GraphicsGroup.h"
 
+/*
+    TypedGraphicsGroup is type secured GraphicsGroup, that allows only one type to contain
+*/
 // TG is graphicsItem type
 template<typename TG>
 class TypedGraphicsGroup: public GraphicsGroup {

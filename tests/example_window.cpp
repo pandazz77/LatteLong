@@ -100,7 +100,6 @@ class ProjectionsFabric{
         QMap<QString,std::function<IProjection*()>> factoryMap;
 };
 
-#include "GeometryConvertor.h"
 
 int main(int argc, char *argv[]){
     QApplication app(argc,argv);
