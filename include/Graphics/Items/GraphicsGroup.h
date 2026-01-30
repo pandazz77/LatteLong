@@ -17,6 +17,9 @@ class GraphicsGroup : public GraphicsItem {
         QRectF boundingRect() const override;
         QPainterPath shape() const override;
 
+        void sceneChanged() override;
+        void projectionChanged() override;
+
         void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr) override;
 
         bool isObscuredBy(const QGraphicsItem* item) const override;

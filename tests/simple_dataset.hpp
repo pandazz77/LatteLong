@@ -121,6 +121,12 @@ const Polygon polyTest = Polygon{
     }
 };
 
+const MultiPoint mutliPointTest = MultiPoint{
+    {-52.359, 42.5831},
+    {-58.7971, 43.3989},
+    {-63.6551, 43.3989},
+};
+
 const MultiLineString multiLineTest = MultiLineString{
     LineString({
         {-52.1734, 49.4735},

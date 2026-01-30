@@ -175,7 +175,9 @@ int main(int argc, char *argv[]){
     poly->setPen(randomizedPen(poly->pen()));
     poly->setBrush(randomizedBrush(poly->brush()));
 
-    // HERE MUST ME MULTIPOINT DEFINITION
+    marker = circleMarker();
+    GraphicsMultiPixmap *multiPoint = new GraphicsMultiPixmap(marker.first,mutliPointTest);
+    multiPoint->setAnchor(marker.second);
 
     GraphicsMultiLineString *multiLine = new GraphicsMultiLineString(multiLineTest);
     multiLine->setPen(randomizedPen(multiLine->pen()));
@@ -187,7 +189,7 @@ int main(int argc, char *argv[]){
     point->addTo(view);
     line->addTo(view);
     poly->addTo(view);
-    // HERE MUST ME MULTIPOINT
+    multiPoint->addTo(view);
     multiLine->addTo(view);
     multiPoly->addTo(view);
 

@@ -73,3 +73,12 @@ bool GraphicsGroup::isObscuredBy(const QGraphicsItem* item) const {
 QPainterPath GraphicsGroup::opaqueArea() const {
     return shape();
 }
+
+
+void GraphicsGroup::sceneChanged() {
+    for(auto item: items()) item->sceneChanged();
+}
+
+void GraphicsGroup::projectionChanged() {
+    for(auto item: items()) item->projectionChanged();
+}
