@@ -43,9 +43,9 @@ void GraphicsMultiPolygon::setPolygons(const MultiPolygon &polygons){
 
     for(auto poly: polygons){
         GraphicsPolygon *item = new GraphicsPolygon(poly);
+        add(item);
         item->setPen(pen());
         item->setBrush(brush());
-        add(item);
     }
 }
 

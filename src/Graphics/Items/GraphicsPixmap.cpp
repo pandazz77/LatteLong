@@ -107,9 +107,9 @@ void GraphicsMultiPixmap::setPoints(const MultiPoint &points){
 
     for(auto point: points){
         GraphicsPixmap *item = new GraphicsPixmap(pixmap());
+        add(item);
         item->setOffset(offset());
         item->setGPos(point);
-        add(item);
     }
 }
 

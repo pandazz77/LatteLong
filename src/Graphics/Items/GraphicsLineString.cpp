@@ -39,8 +39,8 @@ void GraphicsMultiLineString::setLines(const MultiLineString &lines){
 
     for(auto line: lines){
         GraphicsLineString *item = new GraphicsLineString(line);
-        item->setPen(pen());
         add(item);
+        item->setPen(pen());
     }
 }
 
