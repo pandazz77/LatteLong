@@ -2,6 +2,7 @@
 
 #include "GraphicsPath.h"
 #include "LineString.h"
+#include "TypedGraphicsGroup.hpp"
 
 class GraphicsLineString: public GraphicsPath{
     public:
@@ -13,9 +14,17 @@ class GraphicsLineString: public GraphicsPath{
 
         QPainterPath path(const IProjection *proj) const override;
 
-        void setBrush(const QBrush &brush) = delete;
-        QBrush brush() const = delete;
-
     private:
         LineString _line;
+};
+
+class GraphicsMultiLineString: public TypedGraphicsGroup<GraphicsLineString>, public IGraphicsLine{
+    public:
+        GraphicsMultiLineString(GraphicsItem *parent = nullptr);
+        GraphicsMultiLineString(const MultiLineString &lines, GraphicsItem *parent = nullptr);
+
+        void setPen(const QPen &pen) override;
+
+        void setLines(const MultiLineString &lines);
+        MultiLineString lines() const;
 };

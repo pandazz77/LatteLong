@@ -5,8 +5,10 @@
 #include <QComboBox>
 #include <QMap>
 
+#include "GraphicsLineString.h"
 #include "GraphicsPolygon.h"
 #include "GraphicsPixmap.h"
+#include "GraphicsGroup.h"
 #include "MapGraphicsView.h"
 
 #include "SimpleProjection.h"
@@ -21,6 +23,16 @@ QColor randomColor(){
         QRandomGenerator::global()->bounded(255),
         QRandomGenerator::global()->bounded(255)
     );
+}
+
+QPen randomizedPen(QPen pen){
+    pen.setColor(randomColor());
+    return pen;
+}
+
+QBrush randomizedBrush(QBrush brush){
+    brush.setColor(randomColor());
+    return brush;
 }
 
 // returns pixmap and anchor
@@ -88,6 +100,7 @@ class ProjectionsFabric{
         QMap<QString,std::function<IProjection*()>> factoryMap;
 };
 
+
 int main(int argc, char *argv[]){
     QApplication app(argc,argv);
     QWidget *window = new QWidget;
@@ -137,12 +150,49 @@ int main(int argc, char *argv[]){
 
     eurasia->addTo(view);
     africa->addTo(view);
-    northAmerica->addTo(view);
-    southAmerica->addTo(view);
     australia->addTo(view);
     greenland->addTo(view);
     antarctica->addTo(view);
     saintP->addTo(view);
+
+    GraphicsGroup *america = new GraphicsGroup({northAmerica,southAmerica});
+    // OR:
+    // america->add(northAmerica);
+    // america->add(southAmerica);
+    america->addTo(view);
+
+    // ==================== SAMPLE GEOMETRIES
+    marker = circleMarker();
+    GraphicsPixmap *point = new GraphicsPixmap(marker.first);
+    point->setGPos(pointTest);
+    point->setAnchor(marker.second);
+
+    GraphicsLineString *line = new GraphicsLineString(lineTest);
+    line->setPen(randomizedPen(line->pen()));
+
+    GraphicsPolygon *poly = new GraphicsPolygon(polyTest);
+    poly->setPen(randomizedPen(poly->pen()));
+    poly->setBrush(randomizedBrush(poly->brush()));
+
+    marker = circleMarker();
+    GraphicsMultiPixmap *multiPoint = new GraphicsMultiPixmap(marker.first,mutliPointTest);
+    multiPoint->setAnchor(marker.second);
+
+    GraphicsMultiLineString *multiLine = new GraphicsMultiLineString(multiLineTest);
+    multiLine->setPen(randomizedPen(multiLine->pen()));
+
+    GraphicsMultiPolygon *multiPoly = new GraphicsMultiPolygon(multiPolyTest);
+    multiPoly->setPen(randomizedPen(multiPoly->pen()));
+    multiPoly->setBrush(randomizedBrush(multiPoly->brush()));
+
+    point->addTo(view);
+    line->addTo(view);
+    poly->addTo(view);
+    multiPoint->addTo(view);
+    multiLine->addTo(view);
+    multiPoly->addTo(view);
+
+    // ====================
 
     window->show();
 

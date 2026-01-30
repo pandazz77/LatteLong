@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GraphicsItem.h"
+#include "TypedGraphicsGroup.hpp"
 
 #include <QPixmap>
 #include <QPainter>
@@ -9,28 +10,47 @@
 #include <QStyleOptionGraphicsItem>
 #include <QWidget>
 
-class GraphicsPixmap : public GraphicsItem {
+class IGraphicsPixmap{
+    public:
+        IGraphicsPixmap(const QPixmap &pixmap = QPixmap());
+        virtual void setPixmap(const QPixmap &pixmap);
+        QPixmap pixmap() const;
+
+        virtual void setOffset(const QPointF &offset);
+        QPointF offset() const;
+
+        // anchor is negative offset
+        virtual void setAnchor(const QPointF &anchor);
+        QPointF anchor();
+    private:
+        QPixmap _pixmap;
+        QPointF _offset;
+};
+
+class GraphicsPixmap : public GraphicsItem, public IGraphicsPixmap {
     public:
 
         explicit GraphicsPixmap(GraphicsItem *parent = nullptr);
         explicit GraphicsPixmap(const QPixmap &pixmap, GraphicsItem *parent = nullptr);
 
-        void setPixmap(const QPixmap &pixmap);
-        QPixmap pixmap() const;
-
-        void setOffset(const QPointF &offset);
-        QPointF offset() const;
-
-        // anchor is negative offset
-        void setAnchor(const QPointF &anchor);
-        QPointF anchor();
+        void setPixmap(const QPixmap &pixmap) override;
+        void setOffset(const QPointF &offset) override;
 
         QRectF boundingRect() const override;
         void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr) override;
         QPainterPath shape() const override;
         bool contains(const QPointF &point) const override;
+};
 
-    private:
-        QPixmap _pixmap;
-        QPointF _offset;
+class GraphicsMultiPixmap: public TypedGraphicsGroup<GraphicsPixmap>, public IGraphicsPixmap {
+    public:
+        GraphicsMultiPixmap(GraphicsItem *parent = nullptr);
+        GraphicsMultiPixmap(const QPixmap &pixmap, const MultiPoint &points = {}, GraphicsItem *parent = nullptr);
+
+        void setPixmap(const QPixmap &pixmap) override;
+        void setOffset(const QPointF &offset) override;
+        void setAnchor(const QPointF &anchor) override;
+
+        void setPoints(const MultiPoint &points);
+        MultiPoint points() const;
 };

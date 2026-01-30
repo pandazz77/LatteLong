@@ -1,17 +1,18 @@
 #pragma once
 
+#include "GraphicsItem.h"
 #include "GraphicsShape.h"
 #include <QPainter>
 #include <QPainterPath>
 
-class GraphicsPath : public GraphicsShape {
+class GraphicsPath : public GraphicsItem, public IGraphicsLine {
     public:
         GraphicsPath(GraphicsItem *parent = nullptr);
 
         virtual QPainterPath path(const IProjection *proj) const = 0;
 
         QRectF boundingRect() const override;
-        void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr) override;
+        virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr) override;
         QPainterPath shape() const override;
 
     protected:

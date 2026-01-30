@@ -1,5 +1,7 @@
 #pragma once
 
+#include "MultiGeometry.h"
+
 class LatLng{
     public:
         LatLng(double lat = 0, double lng = 0);
@@ -15,3 +17,5 @@ class LatLng{
 };
 
 inline LatLng LngLat(double lng = 0, double lat = 0);
+
+using MultiPoint = MultiGeometry<LatLng>;

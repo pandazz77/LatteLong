@@ -1,6 +1,7 @@
 #pragma once
 
 #include "LineString.h"
+#include "MultiGeometry.h"
 
 class Polygon{
     public:
@@ -13,3 +14,5 @@ class Polygon{
         LineString exterior;
         QVector<LineString> interiors;
 };
+
+using MultiPolygon = MultiGeometry<Polygon>;
