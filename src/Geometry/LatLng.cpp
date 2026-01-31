@@ -18,6 +18,6 @@ double LatLng::lng() const {
     return _lng;
 }
 
-inline LatLng LngLat(double lng, double lat){
+LatLng LngLat(double lng, double lat){
     return LatLng(lat,lng);
 }

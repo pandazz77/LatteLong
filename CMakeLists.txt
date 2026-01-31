@@ -25,6 +25,8 @@ set(SRCS
     src/Graphics/Items/GraphicsPolygon.cpp
     src/Graphics/Items/GraphicsPixmap.cpp
     src/Graphics/Items/GraphicsGroup.cpp
+
+    src/Providers/GeoJsonProvider.cpp
 )
 
 set(HDRS
@@ -51,6 +53,8 @@ set(HDRS
     include/Graphics/Items/GraphicsPixmap.h
     include/Graphics/Items/GraphicsGroup.h
     include/Graphics/Items/TypedGraphicsGroup.hpp
+
+    include/Providers/GeoJsonProvider.h
 )
 
 SET(INCLUDES
@@ -58,6 +62,7 @@ SET(INCLUDES
     include/Projection
     include/Graphics/Items
     include/Graphics/View
+    include/Providers
 )
 
 find_package(Qt6 COMPONENTS 

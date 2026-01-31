@@ -5,3 +5,7 @@ add_executable(ExampleWindow example_window.cpp simple_dataset.hpp)
 target_link_libraries(ExampleWindow LatteLong)
 
 # ==========================
+
+
+add_executable(GeojsonViewer geojson_viewer.cpp)
+target_link_libraries(GeojsonViewer LatteLong)
