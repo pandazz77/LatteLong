@@ -1,6 +1,7 @@
 #include "Mercator.h"
 
-#include <cmath>
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 QPointF Mercator::project(const LatLng &latlng) const {
     double x, y;

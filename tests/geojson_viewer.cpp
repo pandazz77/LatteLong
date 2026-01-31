@@ -44,6 +44,7 @@ int main(int argc, char *argv[]){
     rightLayout->addStretch(1);
     selectFileBtn->connect(selectFileBtn,&QPushButton::clicked,[&](){
         QString fileName = QFileDialog::getOpenFileName(window,"Open GeoJson file");
+        if(fileName.isEmpty()) return;
         onGeoJsonOpen(map,fileName);
     });
 

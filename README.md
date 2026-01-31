@@ -2,7 +2,7 @@
 
 # LatteLong
 
-Geographic Qt library.
+Crossplatform geographic Qt6 library.
 
 ![geojson_viewer](doc/geojson_viewer.png)
 
