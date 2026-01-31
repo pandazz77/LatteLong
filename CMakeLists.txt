@@ -26,6 +26,7 @@ set(SRCS
     src/Graphics/Items/GraphicsPixmap.cpp
     src/Graphics/Items/GraphicsGroup.cpp
 
+    src/Providers/VectorProvider.cpp
     src/Providers/GeoJsonProvider.cpp
 )
 
@@ -54,6 +55,7 @@ set(HDRS
     include/Graphics/Items/GraphicsGroup.h
     include/Graphics/Items/TypedGraphicsGroup.hpp
 
+    include/Providers/VectorProvider.h
     include/Providers/GeoJsonProvider.h
 )
 

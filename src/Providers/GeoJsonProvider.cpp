@@ -5,7 +5,6 @@
 #include "GraphicsPolygon.h"
 
 #include <QFile>
-#include <QRandomGenerator>
 
 #define GJ_FEATURE "Feature"
 #define GJ_FEATURECOLLECTION "FeatureCollection"
@@ -15,43 +14,6 @@
 #define GJ_MULTIPOINT "MultiPoint"
 #define GJ_MULTILINE "MultiLineString"
 #define GJ_MULTIPOLY "MultiPolygon"
-
-QColor randomColor(){
-    return QColor(
-        QRandomGenerator::global()->bounded(255),
-        QRandomGenerator::global()->bounded(255),
-        QRandomGenerator::global()->bounded(255)
-    );
-}
-// returns pixmap and anchor
-QPair<QPixmap,QPointF> circleMarker(){
-    QPixmap pixmap(12,12);
-    pixmap.fill(Qt::transparent);
-
-    QPainter painter(&pixmap);
-    QPen pen(randomColor(),1);
-    QBrush brush(randomColor());
-
-    painter.setPen(pen);
-    painter.setBrush(brush);
-    painter.drawEllipse(pixmap.rect());
-
-    return {
-        pixmap,
-        {pixmap.height()/2.0,pixmap.width()/2.0}
-    };
-}
-
-QPen randomizedPen(QPen pen){
-    pen.setColor(randomColor());
-    return pen;
-}
-
-QBrush randomizedBrush(QBrush brush){
-    brush.setColor(randomColor());
-    return brush;
-}
-
 
 template<>
 LatLng GeoJsonProvider::fetchGeometry<LatLng>(QVariantList lngLat){
@@ -91,6 +53,9 @@ MultiGeometry<TGeometry> GeoJsonProvider::fetchMultiGeometry(QVariantList multiI
     return multi;
 }
 
+GeoJsonProvider::GeoJsonProvider() : VectorProvider() {
+    
+}
 
     
 GraphicsGroup *GeoJsonProvider::load(const QJsonDocument &doc){
@@ -119,6 +84,7 @@ GraphicsItem *GeoJsonProvider::processFeature(QVariantMap map){
 
     GraphicsItem *item = createItemFromGeometry(map["geometry"].toMap());
     // HERE MUST BE PROPERTIES ASSIGMENT
+    VectorProvider::onNewLayer(item,QVariant{}/*QVariant must be feature properties*/);
 
     return item;
 }
@@ -139,34 +105,24 @@ GraphicsItem *GeoJsonProvider::createItemFromGeometry(QVariantMap map){
 
 
     if(type==GJ_POINT){
-        auto marker = circleMarker();
-        GraphicsPixmap *item = new GraphicsPixmap(marker.first);
-        item->setAnchor(marker.second);
+        GraphicsPixmap *item = new GraphicsPixmap();
         item->setGPos(fetchGeometry<LatLng>(coords));
         return item;
     } else if(type==GJ_LINE){
         GraphicsLineString *item = new GraphicsLineString(fetchGeometry<LineString>(coords));
-        item->setPen(randomizedPen(item->pen()));
         return item;
     } else if(type==GJ_POLY){
         GraphicsPolygon *item = new GraphicsPolygon(fetchGeometry<Polygon>(coords));
-        item->setPen(randomizedPen(item->pen()));
-        item->setBrush(randomizedBrush(item->brush()));
         return item;
     } else if (type==GJ_MULTIPOINT){
-        auto marker = circleMarker();
-        GraphicsMultiPixmap *item = new GraphicsMultiPixmap(marker.first);
-        item->setAnchor(marker.second);
+        GraphicsMultiPixmap *item = new GraphicsMultiPixmap();
         item->setPoints(fetchMultiGeometry<LatLng>(coords));
         return item;
     } else if(type==GJ_MULTILINE){
         GraphicsMultiLineString *item = new GraphicsMultiLineString(fetchMultiGeometry<LineString>(coords));
-        item->setPen(randomizedPen(item->pen()));
         return item;
     } else if(type==GJ_MULTIPOLY){
         GraphicsMultiPolygon *item = new GraphicsMultiPolygon(fetchMultiGeometry<Polygon>(coords));
-        item->setPen(randomizedPen(item->pen()));
-        item->setBrush(randomizedBrush(item->brush()));
         return item;
     }
 }

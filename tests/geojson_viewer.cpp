@@ -10,9 +10,11 @@
 
 #include "ProjComboBox.hpp"
 
+GeoJsonProvider provider;
+
 void onGeoJsonOpen(MapGraphicsView *view, QString fileName){
     view->scene()->clear();
-    GraphicsGroup *group = GeoJsonProvider::fromFile(fileName);
+    GraphicsGroup *group = provider.fromFile(fileName);
     group->addTo(view);
 }
 
