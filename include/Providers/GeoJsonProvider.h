@@ -20,10 +20,10 @@ namespace GeoJsonProvider{
 
     GraphicsItem *createItemFromGeometry(QVariantMap map);
 
-    LatLng fetchPoint(QVariantList lngLatCoords);
-    LineString fetchLine(QVariantList lngLatCoords);
-    Polygon fetchPoly(QVariantList lngLatCoords);
-    
+    template<typename TGeometry>
+    TGeometry fetchGeometry(QVariantList lngLatCoords);
+
     template<class TGeometry>
-    MultiGeometry<TGeometry> fetchMultiGeometry(QVariantList lngLatCoords);
+    MultiGeometry<TGeometry> fetchMultiGeometry(QVariantList multiItems);
+
 };

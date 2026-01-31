@@ -52,6 +52,46 @@ QBrush randomizedBrush(QBrush brush){
     return brush;
 }
 
+
+template<>
+LatLng GeoJsonProvider::fetchGeometry<LatLng>(QVariantList lngLat){
+    return LngLat(
+        lngLat[0].toDouble(),
+        lngLat[1].toDouble()
+    );
+}
+
+template<>
+LineString GeoJsonProvider::fetchGeometry<LineString>(QVariantList lngLatCoords){
+    LineString result;
+    for(auto var_pos: lngLatCoords.toList()){
+        result.push_back(fetchGeometry<LatLng>(var_pos.toList()));
+    }
+    return result;
+}
+
+template<>
+Polygon GeoJsonProvider::fetchGeometry<Polygon>(QVariantList lngLatPoly){
+    LineString exterior(fetchGeometry<LineString>(lngLatPoly[0].toList()));
+    MultiLineString interriors;
+    if(lngLatPoly.size()>1){ 
+        QVariantList var_interriors = lngLatPoly.sliced(1);
+        interriors = fetchMultiGeometry<LineString>(var_interriors);
+    }
+    return Polygon(exterior,interriors);
+}
+
+
+template<class TGeometry>
+MultiGeometry<TGeometry> GeoJsonProvider::fetchMultiGeometry(QVariantList multiItems){
+    MultiGeometry<TGeometry> multi;
+    for(auto var_item: multiItems){
+        multi.push_back(fetchGeometry<TGeometry>(var_item.toList()));
+    }
+    return multi;
+}
+
+
     
 GraphicsGroup *GeoJsonProvider::load(const QJsonDocument &doc){
     return processFeatureCollection(doc.toVariant().toMap());
@@ -102,14 +142,14 @@ GraphicsItem *GeoJsonProvider::createItemFromGeometry(QVariantMap map){
         auto marker = circleMarker();
         GraphicsPixmap *item = new GraphicsPixmap(marker.first);
         item->setAnchor(marker.second);
-        item->setGPos(fetchPoint(coords));
+        item->setGPos(fetchGeometry<LatLng>(coords));
         return item;
     } else if(type==GJ_LINE){
-        GraphicsLineString *item = new GraphicsLineString(fetchLine(coords));
+        GraphicsLineString *item = new GraphicsLineString(fetchGeometry<LineString>(coords));
         item->setPen(randomizedPen(item->pen()));
         return item;
     } else if(type==GJ_POLY){
-        GraphicsPolygon *item = new GraphicsPolygon(fetchPoly(coords));
+        GraphicsPolygon *item = new GraphicsPolygon(fetchGeometry<Polygon>(coords));
         item->setPen(randomizedPen(item->pen()));
         item->setBrush(randomizedBrush(item->brush()));
         return item;
@@ -129,56 +169,4 @@ GraphicsItem *GeoJsonProvider::createItemFromGeometry(QVariantMap map){
         item->setBrush(randomizedBrush(item->brush()));
         return item;
     }
-}
-
-LatLng GeoJsonProvider::fetchPoint(QVariantList lngLat){
-    return LngLat(
-        lngLat[0].toDouble(),
-        lngLat[1].toDouble()
-    );
-}
-
-LineString GeoJsonProvider::fetchLine(QVariantList lngLatCoords){
-    LineString result;
-    for(auto var_pos: lngLatCoords.toList()){
-        result.push_back(fetchPoint(var_pos.toList()));
-    }
-    return result;
-}
-
-Polygon GeoJsonProvider::fetchPoly(QVariantList lngLatPoly){
-    LineString exterior(fetchLine(lngLatPoly[0].toList()));
-    MultiLineString interriors;
-    if(lngLatPoly.size()>1){ 
-        QVariantList var_interriors = lngLatPoly.sliced(1);
-        interriors = fetchMultiGeometry<LineString>(var_interriors);
-    }
-    return Polygon(exterior,interriors);
-}
-
-template<typename TGeometry>
-TGeometry fetchGeometry(QVariantList lngLatCoords);
-
-template<>
-LatLng fetchGeometry<LatLng>(QVariantList lngLatCoords){
-    return GeoJsonProvider::fetchPoint(lngLatCoords);
-}
-
-template<>
-Polygon fetchGeometry<Polygon>(QVariantList lngLatCoords){
-    return GeoJsonProvider::fetchPoly(lngLatCoords);
-}
-
-template<>
-LineString fetchGeometry<LineString>(QVariantList lngLatCoords){
-    return GeoJsonProvider::fetchLine(lngLatCoords);
-}
-
-template<class TGeometry>
-MultiGeometry<TGeometry> GeoJsonProvider::fetchMultiGeometry(QVariantList multiItems){
-    MultiGeometry<TGeometry> multi;
-    for(auto var_item: multiItems){
-        multi.push_back(fetchGeometry<TGeometry>(var_item.toList()));
-    }
-    return multi;
 }
