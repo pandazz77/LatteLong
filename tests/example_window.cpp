@@ -11,11 +11,8 @@
 #include "GraphicsGroup.h"
 #include "MapGraphicsView.h"
 
-#include "SimpleProjection.h"
-#include "SphericalMercator.h"
-#include "Mercator.h"
-
 #include "simple_dataset.hpp"
+#include "ProjComboBox.hpp"
 
 QColor randomColor(){
     return QColor(
@@ -81,26 +78,6 @@ QPair<QPixmap,QPointF> circleMarker(){
     };
 }
 
-class ProjectionsFabric{
-    public:
-        template<typename Proj>
-        void regProjection(QString projName){
-            factoryMap[projName] = [](){ return new Proj(); };
-        }
-
-        IProjection *get(QString projName) const{
-            return factoryMap[projName]();
-        }
-
-        QStringList projections() const {
-            return factoryMap.keys();
-        }
-
-    private:
-        QMap<QString,std::function<IProjection*()>> factoryMap;
-};
-
-
 int main(int argc, char *argv[]){
     QApplication app(argc,argv);
     QWidget *window = new QWidget;
@@ -109,18 +86,7 @@ int main(int argc, char *argv[]){
 
     MapGraphicsView *view = new MapGraphicsView(new MapGraphicsScene(),window);
     window->layout()->addWidget(view);
-
-    QComboBox *projectionsCombo = new QComboBox(window);
-    ProjectionsFabric projFabric;
-    projFabric.regProjection<SimpleProjection>("Simple projection");
-    projFabric.regProjection<Mercator>("Mercator");
-    projFabric.regProjection<SphericalMercator>("Spherical mercator");
-    projectionsCombo->addItems(projFabric.projections());
-    projectionsCombo->setCurrentText("Simple projection");
-    projectionsCombo->connect(projectionsCombo,&QComboBox::currentTextChanged,[&](QString projName){
-        view->setProjection(projFabric.get(projName));
-    });
-    window->layout()->addWidget(projectionsCombo);
+    window->layout()->addWidget(new ProjComboBox(view));
 
     GraphicsPolygon *water = new GraphicsPolygon(waterPoly);
     water->setBrush(Qt::blue);
