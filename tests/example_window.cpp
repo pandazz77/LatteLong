@@ -10,95 +10,10 @@
 #include "GraphicsPixmap.h"
 #include "GraphicsGroup.h"
 #include "MapGraphicsView.h"
-
-#include "SimpleProjection.h"
-#include "SphericalMercator.h"
-#include "Mercator.h"
+#include "VectorProvider.h"
 
 #include "simple_dataset.hpp"
-
-QColor randomColor(){
-    return QColor(
-        QRandomGenerator::global()->bounded(255),
-        QRandomGenerator::global()->bounded(255),
-        QRandomGenerator::global()->bounded(255)
-    );
-}
-
-QPen randomizedPen(QPen pen){
-    pen.setColor(randomColor());
-    return pen;
-}
-
-QBrush randomizedBrush(QBrush brush){
-    brush.setColor(randomColor());
-    return brush;
-}
-
-// returns pixmap and anchor
-QPair<QPixmap,QPointF> triangleMarker(){
-    constexpr int SIZE = 20;
-    QPixmap pixmap(SIZE,SIZE);
-    pixmap.fill(Qt::transparent);
-
-    QPainter painter(&pixmap);
-    QPen pen(randomColor(),1);
-    QBrush brush(randomColor());
-
-    painter.setPen(pen);
-    painter.setBrush(brush);
-    QRect rect = pixmap.rect();
-    QPoint anchor{SIZE/2,SIZE};
-    QPolygon triangle{
-        rect.topLeft(),
-        rect.topRight(),
-        anchor
-    };
-    painter.drawPolygon(triangle);
-
-    return {
-        pixmap,
-        anchor
-    };
-}
-
-// returns pixmap and anchor
-QPair<QPixmap,QPointF> circleMarker(){
-    QPixmap pixmap(12,12);
-    pixmap.fill(Qt::transparent);
-
-    QPainter painter(&pixmap);
-    QPen pen(randomColor(),1);
-    QBrush brush(randomColor());
-
-    painter.setPen(pen);
-    painter.setBrush(brush);
-    painter.drawEllipse(pixmap.rect());
-
-    return {
-        pixmap,
-        {pixmap.height()/2.0,pixmap.width()/2.0}
-    };
-}
-
-class ProjectionsFabric{
-    public:
-        template<typename Proj>
-        void regProjection(QString projName){
-            factoryMap[projName] = [](){ return new Proj(); };
-        }
-
-        IProjection *get(QString projName) const{
-            return factoryMap[projName]();
-        }
-
-        QStringList projections() const {
-            return factoryMap.keys();
-        }
-
-    private:
-        QMap<QString,std::function<IProjection*()>> factoryMap;
-};
+#include "ProjComboBox.hpp"
 
 
 int main(int argc, char *argv[]){
@@ -109,18 +24,7 @@ int main(int argc, char *argv[]){
 
     MapGraphicsView *view = new MapGraphicsView(new MapGraphicsScene(),window);
     window->layout()->addWidget(view);
-
-    QComboBox *projectionsCombo = new QComboBox(window);
-    ProjectionsFabric projFabric;
-    projFabric.regProjection<SimpleProjection>("Simple projection");
-    projFabric.regProjection<Mercator>("Mercator");
-    projFabric.regProjection<SphericalMercator>("Spherical mercator");
-    projectionsCombo->addItems(projFabric.projections());
-    projectionsCombo->setCurrentText("Simple projection");
-    projectionsCombo->connect(projectionsCombo,&QComboBox::currentTextChanged,[&](QString projName){
-        view->setProjection(projFabric.get(projName));
-    });
-    window->layout()->addWidget(projectionsCombo);
+    window->layout()->addWidget(new ProjComboBox(view));
 
     GraphicsPolygon *water = new GraphicsPolygon(waterPoly);
     water->setBrush(Qt::blue);
@@ -135,18 +39,18 @@ int main(int argc, char *argv[]){
     GraphicsPolygon *greenland = new GraphicsPolygon(greenlandPoly);
     GraphicsPolygon *antarctica = new GraphicsPolygon(antarcticaPoly);
 
-    auto marker = triangleMarker();
+    auto marker = RandomVectorStyler::triangleMarker();
     GraphicsPixmap *saintP = new GraphicsPixmap(marker.first);
     saintP->setGPos(saintPpos);
     saintP->setAnchor(marker.second);
 
-    eurasia->setBrush(randomColor());
-    africa->setBrush(randomColor());
-    northAmerica->setBrush(randomColor());
-    southAmerica->setBrush(randomColor());
-    australia->setBrush(randomColor());
-    greenland->setBrush(randomColor());
-    antarctica->setBrush(randomColor());
+    eurasia->setBrush(RandomVectorStyler::randomColor());
+    africa->setBrush(RandomVectorStyler::randomColor());
+    northAmerica->setBrush(RandomVectorStyler::randomColor());
+    southAmerica->setBrush(RandomVectorStyler::randomColor());
+    australia->setBrush(RandomVectorStyler::randomColor());
+    greenland->setBrush(RandomVectorStyler::randomColor());
+    antarctica->setBrush(RandomVectorStyler::randomColor());
 
     eurasia->addTo(view);
     africa->addTo(view);
@@ -162,28 +66,28 @@ int main(int argc, char *argv[]){
     america->addTo(view);
 
     // ==================== SAMPLE GEOMETRIES
-    marker = circleMarker();
+    marker = RandomVectorStyler::circleMarker();
     GraphicsPixmap *point = new GraphicsPixmap(marker.first);
     point->setGPos(pointTest);
     point->setAnchor(marker.second);
 
     GraphicsLineString *line = new GraphicsLineString(lineTest);
-    line->setPen(randomizedPen(line->pen()));
+    line->setPen(RandomVectorStyler::randomizedPen(line->pen()));
 
     GraphicsPolygon *poly = new GraphicsPolygon(polyTest);
-    poly->setPen(randomizedPen(poly->pen()));
-    poly->setBrush(randomizedBrush(poly->brush()));
+    poly->setPen(RandomVectorStyler::randomizedPen(poly->pen()));
+    poly->setBrush(RandomVectorStyler::randomizedBrush(poly->brush()));
 
-    marker = circleMarker();
+    marker = RandomVectorStyler::circleMarker();
     GraphicsMultiPixmap *multiPoint = new GraphicsMultiPixmap(marker.first,mutliPointTest);
     multiPoint->setAnchor(marker.second);
 
     GraphicsMultiLineString *multiLine = new GraphicsMultiLineString(multiLineTest);
-    multiLine->setPen(randomizedPen(multiLine->pen()));
+    multiLine->setPen(RandomVectorStyler::randomizedPen(multiLine->pen()));
 
     GraphicsMultiPolygon *multiPoly = new GraphicsMultiPolygon(multiPolyTest);
-    multiPoly->setPen(randomizedPen(multiPoly->pen()));
-    multiPoly->setBrush(randomizedBrush(multiPoly->brush()));
+    multiPoly->setPen(RandomVectorStyler::randomizedPen(multiPoly->pen()));
+    multiPoly->setBrush(RandomVectorStyler::randomizedBrush(multiPoly->brush()));
 
     point->addTo(view);
     line->addTo(view);

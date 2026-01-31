@@ -16,6 +16,6 @@ class LatLng{
         double _lng;
 };
 
-inline LatLng LngLat(double lng = 0, double lat = 0);
+LatLng LngLat(double lng = 0, double lat = 0);
 
 using MultiPoint = MultiGeometry<LatLng>;
