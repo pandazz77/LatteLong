@@ -73,18 +73,28 @@ GraphicsGroup *GeoJsonProvider::fromFile(const QString &filePath){
 
 GraphicsItem *GeoJsonProvider::processSomeFeature(QVariantMap map){
     QString type = map["type"].toString();
-    if(type == GJ_FEATURE) return processFeature(map);
-    else if(type == GJ_FEATURECOLLECTION) return processFeatureCollection(map);
-    qWarning() << "Undefined geojson type:" << type;
-    return nullptr;
+    GraphicsItem *result = nullptr;
+    if(type == GJ_FEATURE) 
+        result = processFeature(map);
+    else if(type == GJ_FEATURECOLLECTION)
+        result = processFeatureCollection(map);
+    else
+        qWarning() << "Undefined geojson type:" << type;
+    
+    if(map.contains("properties"))
+        result->setData(0,map["properties"]);
+
+    return result;
 }
 
 GraphicsItem *GeoJsonProvider::processFeature(QVariantMap map){
     assert(map["type"].toString() == GJ_FEATURE);
 
     GraphicsItem *item = createItemFromGeometry(map["geometry"].toMap());
-    // HERE MUST BE PROPERTIES ASSIGMENT
-    VectorProvider::onNewLayer(item,QVariant{}/*QVariant must be feature properties*/);
+    QVariant data;
+    if(map.contains("properties"))
+        data = map["properties"];
+    VectorProvider::onNewLayer(item,data);
 
     return item;
 }
