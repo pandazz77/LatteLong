@@ -23,6 +23,12 @@ void GraphicsPolygon::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
     GraphicsPath::paint(painter,option,widget);
 }
 
+
+int GraphicsPolygon::type() const {
+    // Enable the use of qgraphicsitem_cast with this item.
+    return Type;
+}
+
 // =========================
 
 GraphicsMultiPolygon::GraphicsMultiPolygon(GraphicsItem *parent) : TypedGraphicsGroup<GraphicsPolygon>(parent){
@@ -66,4 +72,10 @@ MultiPolygon GraphicsMultiPolygon::polygons() const{
         result.push_back(grPoly->polygon());
     }
     return result;
+}
+
+
+int GraphicsMultiPolygon::type() const {
+    // Enable the use of qgraphicsitem_cast with this item.
+    return Type;
 }

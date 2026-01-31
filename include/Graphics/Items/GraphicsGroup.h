@@ -4,6 +4,10 @@
 
 class GraphicsGroup : public GraphicsItem {
     public:
+        static constexpr int GroupTypeOffset = 200;
+        enum { 
+            Type = BaseType + GroupTypeOffset
+        };
         GraphicsGroup(GraphicsItem* parent = nullptr);
         GraphicsGroup(QVector<GraphicsItem*> items, GraphicsItem* parent = nullptr);
 
@@ -25,4 +29,6 @@ class GraphicsGroup : public GraphicsItem {
         bool isObscuredBy(const QGraphicsItem* item) const override;
 
         QPainterPath opaqueArea() const override;
+
+        int type() const override;
 };

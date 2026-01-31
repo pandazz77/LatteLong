@@ -82,3 +82,8 @@ void GraphicsGroup::sceneChanged() {
 void GraphicsGroup::projectionChanged() {
     for(auto item: items()) item->projectionChanged();
 }
+
+int GraphicsGroup::type() const {
+    // Enable the use of qgraphicsitem_cast with this item.
+    return Type;
+}

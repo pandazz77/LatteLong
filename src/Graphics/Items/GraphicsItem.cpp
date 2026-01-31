@@ -40,3 +40,18 @@ void GraphicsItem::setGPos(const LatLng &geoPos){
 LatLng GraphicsItem::gPos() const {
     return _geoPos;
 };
+
+int GraphicsItem::type() const {
+    // Enable the use of qgraphicsitem_cast with this item.
+    return Type;
+}
+
+template <typename T> 
+T GraphicsItem::cast(GraphicsItem *item){
+    return qgraphicsitem_cast<T>(item);
+}
+
+template <typename T>
+T GraphicsItem::cast(){
+    return cast<T>(this);
+}

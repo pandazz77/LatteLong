@@ -35,3 +35,8 @@ bool GraphicsPath::contains(const QPointF &point) const {
 QPainterPath GraphicsPath::projectedPath() const {
     return path(projection());
 }
+
+int GraphicsPath::type() const {
+    // Enable the use of qgraphicsitem_cast with this item.
+    return Type;
+}

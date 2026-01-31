@@ -72,6 +72,11 @@ bool GraphicsPixmap::contains(const QPointF &point) const {
     return boundingRect().contains(point);
 }
 
+int GraphicsPixmap::type() const {
+    // Enable the use of qgraphicsitem_cast with this item.
+    return Type;
+}
+
 // ===============================
 
 GraphicsMultiPixmap::GraphicsMultiPixmap(const QPixmap &pixmap, const MultiPoint &points, GraphicsItem *parent) : TypedGraphicsGroup<GraphicsPixmap>(parent), IGraphicsPixmap(pixmap) {
@@ -119,4 +124,10 @@ MultiPoint GraphicsMultiPixmap::points() const {
         result.push_back(grPixmap->gPos());
     }
     return result;
+}
+
+
+int GraphicsMultiPixmap::type() const {
+    // Enable the use of qgraphicsitem_cast with this item.
+    return Type;
 }

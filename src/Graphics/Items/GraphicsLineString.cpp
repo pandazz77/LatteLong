@@ -19,6 +19,11 @@ QPainterPath GraphicsLineString::path(const IProjection *proj) const {
     return GeometryConvertor::line(_line,proj);
 }
 
+int GraphicsLineString::type() const {
+    // Enable the use of qgraphicsitem_cast with this item.
+    return Type;
+}
+
 // =========================
 
 GraphicsMultiLineString::GraphicsMultiLineString(GraphicsItem *parent) : TypedGraphicsGroup<GraphicsLineString>(parent){
@@ -55,4 +60,9 @@ MultiLineString GraphicsMultiLineString::lines() const{
 void GraphicsMultiLineString::setPen(const QPen &pen) {
     IGraphicsLine::setPen(pen);
     for(auto item: items()) item->setPen(pen);
+}
+
+int GraphicsMultiLineString::type() const {
+    // Enable the use of qgraphicsitem_cast with this item.
+    return Type;
 }
