@@ -1,7 +1,11 @@
 #include <QApplication>
+#include <QCommandLineParser>
+#include <QHBoxLayout>
+
 #include "MapGraphicsView.h"
 #include "GeoJsonProvider.h"
-#include <QCommandLineParser>
+
+#include "ProjComboBox.hpp"
 
 
 int main(int argc, char *argv[]){
@@ -15,11 +19,17 @@ int main(int argc, char *argv[]){
 
     QString filename = parser.value(input_file_option);
 
+    QWidget *window = new QWidget;
+    window->resize(800,600);
+    window->setLayout(new QHBoxLayout(window));
+
     MapGraphicsView *map = new MapGraphicsView();
+    window->layout()->addWidget(map);
+    window->layout()->addWidget(new ProjComboBox(map));
 
     GraphicsGroup *group = GeoJsonProvider::fromFile(filename);
     group->addTo(map);
 
-    map->show();
+    window->show();
     return app.exec(); 
 }
