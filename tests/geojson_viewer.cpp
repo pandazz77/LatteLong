@@ -30,7 +30,7 @@ int main(int argc, char *argv[]){
     QHBoxLayout *mainLayout = new QHBoxLayout(window);
     window->resize(800,600);
     window->setLayout(mainLayout);
-    QVBoxLayout *rightLayout = new QVBoxLayout(window);
+    QVBoxLayout *rightLayout = new QVBoxLayout(nullptr);
 
     MapGraphicsView *map = new MapGraphicsView();
     mainLayout->addWidget(map);
