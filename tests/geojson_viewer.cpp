@@ -41,6 +41,7 @@ int main(int argc, char *argv[]){
     rightLayout->addWidget(new ProjComboBox(map));
     QPushButton *selectFileBtn = new QPushButton("Select geojson file",window);
     rightLayout->addWidget(selectFileBtn);
+    rightLayout->addStretch(1);
     selectFileBtn->connect(selectFileBtn,&QPushButton::clicked,[&](){
         QString fileName = QFileDialog::getOpenFileName(window,"Open GeoJson file");
         onGeoJsonOpen(map,fileName);
