@@ -1,11 +1,20 @@
 #include <QApplication>
 #include <QCommandLineParser>
 #include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QPushButton>
+#include <QFileDialog>
 
 #include "MapGraphicsView.h"
 #include "GeoJsonProvider.h"
 
 #include "ProjComboBox.hpp"
+
+void onGeoJsonOpen(MapGraphicsView *view, QString fileName){
+    view->scene()->clear();
+    GraphicsGroup *group = GeoJsonProvider::fromFile(fileName);
+    group->addTo(view);
+}
 
 
 int main(int argc, char *argv[]){
@@ -17,19 +26,29 @@ int main(int argc, char *argv[]){
 
     parser.process(app);
 
-    QString filename = parser.value(input_file_option);
-
     QWidget *window = new QWidget;
+    QHBoxLayout *mainLayout = new QHBoxLayout(window);
     window->resize(800,600);
-    window->setLayout(new QHBoxLayout(window));
+    window->setLayout(mainLayout);
+    QVBoxLayout *rightLayout = new QVBoxLayout(window);
 
     MapGraphicsView *map = new MapGraphicsView();
-    window->layout()->addWidget(map);
-    window->layout()->addWidget(new ProjComboBox(map));
+    mainLayout->addWidget(map);
+    mainLayout->addLayout(rightLayout);
 
-    GraphicsGroup *group = GeoJsonProvider::fromFile(filename);
-    group->addTo(map);
+    rightLayout->addWidget(new ProjComboBox(map));
+    QPushButton *selectFileBtn = new QPushButton("Select geojson file",window);
+    rightLayout->addWidget(selectFileBtn);
+    selectFileBtn->connect(selectFileBtn,&QPushButton::clicked,[&](){
+        QString fileName = QFileDialog::getOpenFileName(window,"Open GeoJson file");
+        onGeoJsonOpen(map,fileName);
+    });
 
+    if(parser.isSet(input_file_option)){
+        QString filename = parser.value(input_file_option);
+        onGeoJsonOpen(map,filename);
+    }
+   
     window->show();
     return app.exec(); 
 }
