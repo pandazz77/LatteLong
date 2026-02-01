@@ -9,6 +9,7 @@ GraphicsLineString::GraphicsLineString(const LineString &line, GraphicsItem *par
 
 void GraphicsLineString::setLine(const LineString &line){
     _line = line;
+    updatePathCache();
 }
 
 LineString GraphicsLineString::line() const{

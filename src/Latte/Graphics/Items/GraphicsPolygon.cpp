@@ -8,6 +8,7 @@ GraphicsPolygon::GraphicsPolygon(const Polygon &poly, GraphicsItem *parent) : Gr
 
 void GraphicsPolygon::setPolygon(const Polygon &poly){
     _poly = poly;
+    updatePathCache();
 }
 
 Polygon GraphicsPolygon::polygon() const{

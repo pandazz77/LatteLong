@@ -18,4 +18,11 @@ class GraphicsPath : public GraphicsItem, public IGraphicsLine {
     protected:
         bool contains(const QPointF &point) const override;
         QPainterPath projectedPath() const;
+        void updatePathCache();
+
+        virtual void sceneChanged() override;
+        virtual void projectionChanged() override;
+
+    private:
+        QPainterPath _projectedPathCache;
 };
