@@ -1,0 +1,1 @@
+#include "Latte/Geometry/LineString.h"
