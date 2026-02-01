@@ -7,87 +7,79 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_AUTOMOC ON)
 
 set(SRCS
-    src/Geometry/LatLng.cpp
-    src/Geometry/LineString.cpp
-    src/Geometry/Polygon.cpp
-    src/Geometry/Bounds.cpp
-    src/Geometry/MultiGeometry.cpp
+    src/Latte/Geometry/LatLng.cpp
+    src/Latte/Geometry/LineString.cpp
+    src/Latte/Geometry/Polygon.cpp
+    src/Latte/Geometry/Bounds.cpp
+    src/Latte/Geometry/MultiGeometry.cpp
 
-    src/Projection/GeometryConvertor.cpp
-    src/Projection/SimpleProjection.cpp
-    src/Projection/Mercator.cpp
-    src/Projection/SphericalMercator.cpp
+    src/Latte/Projection/GeometryConvertor.cpp
+    src/Latte/Projection/SimpleProjection.cpp
+    src/Latte/Projection/Mercator.cpp
+    src/Latte/Projection/SphericalMercator.cpp
 
-    src/Graphics/View/MapGraphicsScene.cpp
-    src/Graphics/View/MapGraphicsView.cpp
+    src/Latte/Graphics/View/MapGraphicsScene.cpp
+    src/Latte/Graphics/View/MapGraphicsView.cpp
 
-    src/Graphics/Items/GraphicsItem.cpp
-    src/Graphics/Items/GraphicsShape.cpp
-    src/Graphics/Items/GraphicsPath.cpp
-    src/Graphics/Items/GraphicsLineString.cpp
-    src/Graphics/Items/GraphicsPolygon.cpp
-    src/Graphics/Items/GraphicsPixmap.cpp
-    src/Graphics/Items/GraphicsGroup.cpp
+    src/Latte/Graphics/Items/GraphicsItem.cpp
+    src/Latte/Graphics/Items/GraphicsShape.cpp
+    src/Latte/Graphics/Items/GraphicsPath.cpp
+    src/Latte/Graphics/Items/GraphicsLineString.cpp
+    src/Latte/Graphics/Items/GraphicsPolygon.cpp
+    src/Latte/Graphics/Items/GraphicsPixmap.cpp
+    src/Latte/Graphics/Items/GraphicsGroup.cpp
 
-    src/Providers/VectorProvider.cpp
-    src/Providers/GeoJsonProvider.cpp
+    src/Latte/Providers/VectorProvider.cpp
+    src/Latte/Providers/GeoJsonProvider.cpp
 )
 
 set(HDRS
-    include/Geometry/LatLng.h
-    include/Geometry/LineString.h
-    include/Geometry/Polygon.h
-    include/Geometry/Bounds.h
-    include/Geometry/MultiGeometry.h
+    include/Latte/Geometry/LatLng.h
+    include/Latte/Geometry/LineString.h
+    include/Latte/Geometry/Polygon.h
+    include/Latte/Geometry/Bounds.h
+    include/Latte/Geometry/MultiGeometry.h
 
-    include/Projection/GeometryConvertor.h
-    include/Projection/IProjection.hpp
-    include/Projection/SimpleProjection.h
-    include/Projection/Mercator.h
-    include/Projection/SphericalMercator.h
+    include/Latte/Projection/GeometryConvertor.h
+    include/Latte/Projection/IProjection.hpp
+    include/Latte/Projection/SimpleProjection.h
+    include/Latte/Projection/Mercator.h
+    include/Latte/Projection/SphericalMercator.h
 
-    include/Graphics/View/MapGraphicsScene.h
-    include/Graphics/View/MapGraphicsView.h
+    include/Latte/Graphics/View/MapGraphicsScene.h
+    include/Latte/Graphics/View/MapGraphicsView.h
     
-    include/Graphics/Items/GraphicsItem.h
-    include/Graphics/Items/GraphicsShape.h
-    include/Graphics/Items/GraphicsPath.h
-    include/Graphics/Items/GraphicsLineString.h
-    include/Graphics/Items/GraphicsPolygon.h
-    include/Graphics/Items/GraphicsPixmap.h
-    include/Graphics/Items/GraphicsGroup.h
-    include/Graphics/Items/TypedGraphicsGroup.hpp
+    include/Latte/Graphics/Items/GraphicsItem.h
+    include/Latte/Graphics/Items/GraphicsShape.h
+    include/Latte/Graphics/Items/GraphicsPath.h
+    include/Latte/Graphics/Items/GraphicsLineString.h
+    include/Latte/Graphics/Items/GraphicsPolygon.h
+    include/Latte/Graphics/Items/GraphicsPixmap.h
+    include/Latte/Graphics/Items/GraphicsGroup.h
+    include/Latte/Graphics/Items/TypedGraphicsGroup.hpp
 
-    include/Providers/VectorProvider.h
-    include/Providers/GeoJsonProvider.h
-)
-
-SET(INCLUDES
-    Geometry
-    Projection
-    Graphics/Items
-    Graphics/View
-    Providers
+    include/Latte/Providers/VectorProvider.h
+    include/Latte/Providers/GeoJsonProvider.h
 )
 
 find_package(Qt6 REQUIRED COMPONENTS 
-    Core 
-    Widgets    
-)
-
-SET(LIBS 
-    Qt6::Core
-    Qt6::Widgets
+    Core
+    Widgets
 )
 
 add_library(${PROJECT_NAME} ${SRCS} ${HDRS})
-target_link_libraries(${PROJECT_NAME} ${LIBS})
-foreach(subdir IN LISTS INCLUDES)
-    target_include_directories(${PROJECT_NAME} PUBLIC
-        "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/${subdir}>"
-        "$<INSTALL_INTERFACE:include/${subdir}>"
-    )
-endforeach()
+target_link_libraries(${PROJECT_NAME}
+    PUBLIC
+        Qt6::Core
+        Qt6::Widgets
+)
+target_include_directories(${PROJECT_NAME}
+    PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+)
+
+
 
 include(GNUInstallDirs)
 
@@ -129,6 +121,9 @@ if(NOT TARGET uninstall)
     COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
 endif()
 # --------------------------------------------------
+
+
+
 
 option(BUILD_TESTS "Build tests" ON)
 if(BUILD_TESTS)

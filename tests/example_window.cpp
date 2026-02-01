@@ -5,12 +5,12 @@
 #include <QComboBox>
 #include <QMap>
 
-#include "GraphicsLineString.h"
-#include "GraphicsPolygon.h"
-#include "GraphicsPixmap.h"
-#include "GraphicsGroup.h"
-#include "MapGraphicsView.h"
-#include "VectorProvider.h"
+#include "Latte/Graphics/Items/GraphicsLineString.h"
+#include "Latte/Graphics/Items/GraphicsPolygon.h"
+#include "Latte/Graphics/Items/GraphicsPixmap.h"
+#include "Latte/Graphics/Items/GraphicsGroup.h"
+#include "Latte/Graphics/View/MapGraphicsView.h"
+#include "Latte/Providers/VectorProvider.h"
 
 #include "simple_dataset.hpp"
 #include "ProjComboBox.hpp"
