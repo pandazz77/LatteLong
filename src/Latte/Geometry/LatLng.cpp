@@ -20,6 +20,14 @@ double LatLng::lng() const {
     return _lng;
 }
 
+bool LatLng::operator==(const LatLng &other) const{
+    return _lat == other.lat() && _lng == other.lng();
+}
+
+bool LatLng::operator!=(const LatLng &other) const{
+    return !operator==(other);
+}
+
 LatLng LngLat(double lng, double lat){
     return LatLng(lat,lng);
 }

@@ -11,6 +11,9 @@ class LatLng{
         double lat() const;
         double lng() const;
 
+        bool operator==(const LatLng &other) const;
+        bool operator!=(const LatLng &other) const;
+
     private:
         double _lat;
         double _lng;

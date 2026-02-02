@@ -39,8 +39,8 @@ QPainterPath GeometryConvertor::polygon(const Polygon &poly, const IProjection *
 
 QRectF GeometryConvertor::bounds(const Bounds &bounds, const IProjection *proj){
     return QRectF(
-        point(bounds.northEast,proj),
-        point(bounds.southWest,proj)
+        point(bounds.NW(),proj),
+        point(bounds.SE(),proj)
     );
 }
 
