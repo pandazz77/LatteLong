@@ -15,4 +15,6 @@ class Polygon{
         QVector<LineString> interiors;
 };
 
+QDebug operator<<(QDebug debug,const Polygon &obj);
+
 using MultiPolygon = MultiGeometry<Polygon>;

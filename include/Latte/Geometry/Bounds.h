@@ -8,3 +8,5 @@ struct Bounds{
     LatLng northEast;
     LatLng southWest;
 };
+
+QDebug operator<<(QDebug debug,const Bounds &obj);

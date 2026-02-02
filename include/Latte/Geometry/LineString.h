@@ -10,4 +10,6 @@ class LineString: public QVector<LatLng>{
         using QVector<LatLng>::QVector;
 };
 
+QDebug operator<<(QDebug debug,const LineString &obj);
+
 using MultiLineString = MultiGeometry<LineString>;

@@ -18,4 +18,6 @@ class LatLng{
 
 LatLng LngLat(double lng = 0, double lat = 0);
 
+QDebug operator<<(QDebug debug,const LatLng &obj);
+
 using MultiPoint = MultiGeometry<LatLng>;
