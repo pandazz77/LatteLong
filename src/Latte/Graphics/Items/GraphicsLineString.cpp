@@ -17,7 +17,7 @@ LineString GraphicsLineString::line() const{
 }
 
 QPainterPath GraphicsLineString::path(const IProjection *proj) const {
-    return GeometryConvertor::line(_line,proj);
+    return convertor().line(_line);
 }
 
 // =========================

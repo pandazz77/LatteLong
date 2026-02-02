@@ -12,6 +12,7 @@ class GraphicsItem : public QGraphicsItem{
 
         MapGraphicsScene *scene() const;
         const IProjection *projection() const;
+        const GeometryConvertor &convertor() const;
 
         void addTo(MapGraphicsScene *scene);
         void addTo(MapGraphicsView *view);

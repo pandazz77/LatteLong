@@ -4,8 +4,8 @@
 #include "Latte/Projection/GeometryConvertor.h"
 #include "Latte/Graphics/Items/GraphicsItem.h"
 
-MapGraphicsScene::MapGraphicsScene(IProjection *proj, QObject *parent) : QGraphicsScene(parent), _proj(proj) {
-            
+MapGraphicsScene::MapGraphicsScene(IProjection *proj, QObject *parent) : QGraphicsScene(parent){
+    setProjection(proj);
 }
 
 MapGraphicsScene::MapGraphicsScene(QObject *parent) : MapGraphicsScene(new SimpleProjection,parent) {
@@ -16,6 +16,10 @@ MapGraphicsScene::~MapGraphicsScene() {
 
 }
 
+const GeometryConvertor &MapGraphicsScene::convertor() const {
+    return _convertor;
+}
+
 const IProjection *MapGraphicsScene::projection(){
     return _proj;
 }
@@ -24,8 +28,9 @@ void MapGraphicsScene::setProjection(IProjection *proj){
     if(_proj)
         delete _proj;
     _proj = proj;
+    _convertor.setProjection(_proj);
     update();
-    setSceneRect(GeometryConvertor::bounds(_proj->bounds(),_proj));
+    setSceneRect(_convertor.bounds(_proj->bounds()));
     for(QGraphicsItem *item: items()){
         GraphicsItem *litem = dynamic_cast<GraphicsItem*>(item);
         litem->projectionChanged();

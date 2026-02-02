@@ -16,7 +16,7 @@ Polygon GraphicsPolygon::polygon() const{
 }
 
 QPainterPath GraphicsPolygon::path(const IProjection *proj) const {
-    return GeometryConvertor::polygon(_poly,proj);
+    return convertor().polygon(_poly);
 }
 
 void GraphicsPolygon::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {

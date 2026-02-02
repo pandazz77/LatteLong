@@ -15,7 +15,8 @@ class MapGraphicsView: public QGraphicsView{
 
         void setProjection(IProjection *proj);
 
-        const IProjection *projection();
+        const IProjection *projection() const ;
+        const GeometryConvertor &convertor() const ;
 
         void fitBounds();
 
