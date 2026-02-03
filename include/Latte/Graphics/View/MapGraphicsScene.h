@@ -17,8 +17,20 @@ class MapGraphicsScene: public QGraphicsScene{
         void setProjection(IProjection *rawProjPtr);
         const GeometryConvertor &convertor() const;
 
-        void addItem(QGraphicsItem *item) = delete;
         void addItem(GraphicsItem *item);
+
+    protected:
+        using QGraphicsScene::addItem;
+        using QGraphicsScene::addEllipse;
+        using QGraphicsScene::addLine;
+        using QGraphicsScene::addPath;
+        using QGraphicsScene::addPixmap;
+        using QGraphicsScene::addPolygon;
+        using QGraphicsScene::addRect;
+        using QGraphicsScene::addSimpleText;
+        using QGraphicsScene::addWidget;
+        using QGraphicsScene::createItemGroup;
+        using QGraphicsScene::destroyItemGroup;
 
     private:
         GeometryConvertor _convertor;
