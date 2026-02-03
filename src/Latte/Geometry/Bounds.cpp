@@ -7,11 +7,28 @@ Bounds::Bounds(const LatLng &ne, const LatLng &sw)
     
 }
 
+double wrapLongitude(double lng) {
+    while (lng > 180.0) lng -= 360.0;
+    while (lng <= -180.0) lng += 360.0;
+    return lng;
+}
+
 LatLng Bounds::center() const{
-    return LatLng{
-        (northEast.lat() + southWest.lat()) / 2.0,
-        (northEast.lng() + southWest.lng()) / 2.0,
-    };
+    double centerLat = (northEast.lat() + southWest.lat()) / 2.0;
+
+    double west = southWest.lng();
+    double east = northEast.lng();
+
+    double centerLng;
+    if (east < west) {
+        centerLng = (west + (east + 360.0)) / 2.0;
+        centerLng = wrapLongitude(centerLng);
+    } else {
+        centerLng = (west + east) / 2.0;
+    }
+
+    return LatLng(centerLat, centerLng);
+
 }
 
 LatLng Bounds::N() const{
