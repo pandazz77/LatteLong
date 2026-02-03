@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QGraphicsScene>
+#include "Latte/Projection/GeometryConvertor.h"
 #include "Latte/Projection/IProjection.hpp"
 
 class GraphicsItem;
@@ -13,11 +14,12 @@ class MapGraphicsScene: public QGraphicsScene{
         ~MapGraphicsScene();
 
         const IProjection *projection();
-        void setProjection(IProjection *proj);
+        void setProjection(IProjection *rawProjPtr);
+        const GeometryConvertor &convertor() const;
 
         void addItem(QGraphicsItem *item) = delete;
         void addItem(GraphicsItem *item);
 
     private:
-        IProjection *_proj = nullptr; // TODO: make unique
+        GeometryConvertor _convertor;
 };

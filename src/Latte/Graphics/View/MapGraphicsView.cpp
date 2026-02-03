@@ -4,8 +4,6 @@
 #include "Latte/Projection/SimpleProjection.h"
 
 MapGraphicsView::MapGraphicsView(MapGraphicsScene *scene, QWidget *parent) : QGraphicsView(scene,parent){
-    scale(1,-1); // rotate Y axis
-
     setDragMode(QGraphicsView::ScrollHandDrag);
 }
 
@@ -23,12 +21,16 @@ void MapGraphicsView::setProjection(IProjection *proj){
     fitBounds();
 }
 
-const IProjection *MapGraphicsView::projection(){
+const IProjection *MapGraphicsView::projection() const {
     return scene()->projection();
 }
 
+const GeometryConvertor &MapGraphicsView::convertor() const{
+    return scene()->convertor();
+}
+
 void MapGraphicsView::fitBounds(){
-    fitInView(GeometryConvertor::bounds(projection()->bounds(),projection()));
+    fitInView(convertor().bounds(projection()->bounds()));
 }
 
 void MapGraphicsView::wheelEvent(QWheelEvent *event) {

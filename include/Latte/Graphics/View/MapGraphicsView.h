@@ -13,9 +13,10 @@ class MapGraphicsView: public QGraphicsView{
         // QGraphicsScene *scene() const = delete;
         MapGraphicsScene *scene() const;
 
-        void setProjection(IProjection *proj);
+        void setProjection(IProjection *rawProjPtr);
 
-        const IProjection *projection();
+        const IProjection *projection() const ;
+        const GeometryConvertor &convertor() const ;
 
         void fitBounds();
 

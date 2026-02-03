@@ -11,6 +11,11 @@ const IProjection *GraphicsItem::projection() const {
     return nullptr;
 }
 
+const GeometryConvertor &GraphicsItem::convertor() const {
+    if(scene())
+        return scene()->convertor();
+}
+
 void GraphicsItem::addTo(MapGraphicsScene *scene) {
     scene->addItem(this);
 }
@@ -31,7 +36,7 @@ void GraphicsItem::projectionChanged(){
 // TODO: FIX IT
 
 void GraphicsItem::updateScenePos(){
-    setPos(GeometryConvertor::point(_geoPos,projection()));
+    setPos(convertor().point(_geoPos));
 }
 
 void GraphicsItem::setGPos(const LatLng &geoPos){

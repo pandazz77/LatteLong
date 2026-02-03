@@ -1,19 +1,39 @@
 #include "Latte/Projection/GeometryConvertor.h"
 
-QPointF GeometryConvertor::point(const LatLng &pos,const IProjection *proj){
-    return proj->project(pos);
+#include <QDebug>
+
+GeometryConvertor::GeometryConvertor(IProjection *proj){
+    setProjection(proj);
 }
 
-QVector<QPointF> GeometryConvertor::simpleLine(const LineString &line, const IProjection *proj){
+void GeometryConvertor::setProjection(IProjection *proj){
+    _proj.reset(proj);
+}
+
+const IProjection *GeometryConvertor::projection() const {
+    return _proj.get();
+}
+
+QPointF GeometryConvertor::point(const LatLng &pos) const {
+    QPointF projected = _proj->project(pos);
+    return lcs.toLocal(projected);
+}
+
+LatLng GeometryConvertor::point(const QPointF &scenePos) const {
+    QPointF global = lcs.fromLocal(scenePos);
+    return _proj->unproject(global);
+}
+
+QVector<QPointF> GeometryConvertor::simpleLine(const LineString &line) const {
     QVector<QPointF> pointVector;
     for(const LatLng &latLng: line){
-        pointVector.push_back(point(latLng,proj));
+        pointVector.push_back(point(latLng));
     }
     return pointVector;
 }
 
-QPainterPath GeometryConvertor::line(const LineString &line, const IProjection *proj){
-    QVector<QPointF> simple = simpleLine(line,proj);
+QPainterPath GeometryConvertor::line(const LineString &line) const {
+    QVector<QPointF> simple = simpleLine(line);
     QPainterPath linePath(simple.constFirst());
 
     for(int i = 1; i < simple.size(); i++){
@@ -23,13 +43,13 @@ QPainterPath GeometryConvertor::line(const LineString &line, const IProjection *
     return linePath;
 }
 
-QPainterPath GeometryConvertor::polygon(const Polygon &poly, const IProjection *proj){
+QPainterPath GeometryConvertor::polygon(const Polygon &poly) const {
     QPainterPath polyPath;
 
-    QPolygonF exterior = ensurePolygonOrder(simpleLine(poly.exterior,proj),true);
+    QPolygonF exterior = ensurePolygonOrder(simpleLine(poly.exterior),true);
     polyPath.addPolygon(exterior);
     for(auto interiorRaw: poly.interiors){
-        QPolygonF interior = ensurePolygonOrder(simpleLine(interiorRaw,proj),false);
+        QPolygonF interior = ensurePolygonOrder(simpleLine(interiorRaw),false);
         polyPath.addPolygon(interior);
     }
     polyPath.setFillRule(Qt::OddEvenFill);
@@ -37,10 +57,13 @@ QPainterPath GeometryConvertor::polygon(const Polygon &poly, const IProjection *
     return polyPath;
 }
 
-QRectF GeometryConvertor::bounds(const Bounds &bounds, const IProjection *proj){
+QRectF GeometryConvertor::bounds(const Bounds &bounds) const {
+    if(bounds.northEast.lng() < bounds.southWest.lng()){
+        qWarning() << "You are trying to use bounds, that crosses antimeridian. Thats not supported!";
+    }
     return QRectF(
-        point(bounds.NW(),proj),
-        point(bounds.SE(),proj)
+        point(bounds.NW()),
+        point(bounds.SE())
     );
 }
 
