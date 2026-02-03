@@ -29,7 +29,7 @@ class IGraphicsPixmap{
 
 class GraphicsPixmap : public GraphicsItem, public IGraphicsPixmap {
     public:
-
+        enum { Type = BaseType + 5 };
         explicit GraphicsPixmap(GraphicsItem *parent = nullptr);
         explicit GraphicsPixmap(const QPixmap &pixmap, GraphicsItem *parent = nullptr);
 
@@ -40,10 +40,13 @@ class GraphicsPixmap : public GraphicsItem, public IGraphicsPixmap {
         void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr) override;
         QPainterPath shape() const override;
         bool contains(const QPointF &point) const override;
+
+        int type() const override;
 };
 
 class GraphicsMultiPixmap: public TypedGraphicsGroup<GraphicsPixmap>, public IGraphicsPixmap {
     public:
+        enum { Type = GroupTypeOffset + GraphicsPixmap::Type };
         GraphicsMultiPixmap(GraphicsItem *parent = nullptr);
         GraphicsMultiPixmap(const QPixmap &pixmap, const MultiPoint &points = {}, GraphicsItem *parent = nullptr);
 
@@ -53,4 +56,6 @@ class GraphicsMultiPixmap: public TypedGraphicsGroup<GraphicsPixmap>, public IGr
 
         void setPoints(const MultiPoint &points);
         MultiPoint points() const;
+
+        int type() const override;
 };

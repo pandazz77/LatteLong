@@ -7,6 +7,7 @@
 
 class GraphicsPolygon: public GraphicsPath, public IGraphicsShape{
     public:
+        enum { Type = BaseType + 4 };
         GraphicsPolygon(GraphicsItem *parent = nullptr);
         GraphicsPolygon(const Polygon &poly, GraphicsItem *parent = nullptr);
 
@@ -16,12 +17,15 @@ class GraphicsPolygon: public GraphicsPath, public IGraphicsShape{
         virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr) override;
         QPainterPath path(const IProjection *proj) const override;
 
+        int type() const override;
+
     private:
         Polygon _poly;
 };
 
 class GraphicsMultiPolygon: public TypedGraphicsGroup<GraphicsPolygon>, public IGraphicsShape, public IGraphicsLine{
     public:
+        enum { Type = GroupTypeOffset + GraphicsPolygon::Type };
         GraphicsMultiPolygon(GraphicsItem *parent = nullptr);
         GraphicsMultiPolygon(const MultiPolygon &polys, GraphicsItem *parent = nullptr);
 
@@ -30,4 +34,6 @@ class GraphicsMultiPolygon: public TypedGraphicsGroup<GraphicsPolygon>, public I
 
         void setPolygons(const MultiPolygon &polygons);
         MultiPolygon polygons() const;
+
+        int type() const override;
 };

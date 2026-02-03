@@ -60,3 +60,8 @@ void GraphicsPath::projectionChanged() {
     GraphicsItem::projectionChanged();
     updatePathCache();
 }
+
+int GraphicsPath::type() const {
+    // Enable the use of qgraphicsitem_cast with this item.
+    return Type;
+}

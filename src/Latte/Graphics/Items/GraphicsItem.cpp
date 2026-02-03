@@ -48,3 +48,8 @@ void GraphicsItem::setGPos(const LatLng &geoPos){
 LatLng GraphicsItem::gPos() const {
     return _geoPos;
 };
+
+int GraphicsItem::type() const {
+    // Enable the use of qgraphicsitem_cast with this item.
+    return Type;
+}
