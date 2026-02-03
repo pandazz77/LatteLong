@@ -5,14 +5,16 @@
 #include <QPushButton>
 #include <QFileDialog>
 
-#include "MapGraphicsView.h"
-#include "GeoJsonProvider.h"
+#include "Latte/Graphics/View/MapGraphicsView.h"
+#include "Latte/Providers/GeoJsonProvider.h"
 
 #include "ProjComboBox.hpp"
 
+GeoJsonProvider provider;
+
 void onGeoJsonOpen(MapGraphicsView *view, QString fileName){
     view->scene()->clear();
-    GraphicsGroup *group = GeoJsonProvider::fromFile(fileName);
+    GraphicsGroup *group = provider.fromFile(fileName);
     group->addTo(view);
 }
 
@@ -39,8 +41,10 @@ int main(int argc, char *argv[]){
     rightLayout->addWidget(new ProjComboBox(map));
     QPushButton *selectFileBtn = new QPushButton("Select geojson file",window);
     rightLayout->addWidget(selectFileBtn);
+    rightLayout->addStretch(1);
     selectFileBtn->connect(selectFileBtn,&QPushButton::clicked,[&](){
         QString fileName = QFileDialog::getOpenFileName(window,"Open GeoJson file");
+        if(fileName.isEmpty()) return;
         onGeoJsonOpen(map,fileName);
     });
 
