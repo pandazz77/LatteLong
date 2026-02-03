@@ -14,6 +14,7 @@ const IProjection *GraphicsItem::projection() const {
 const GeometryConvertor &GraphicsItem::convertor() const {
     if(scene())
         return scene()->convertor();
+    throw std::runtime_error("Cannot get GeometryConvertor due to null scene");
 }
 
 void GraphicsItem::addTo(MapGraphicsScene *scene) {
