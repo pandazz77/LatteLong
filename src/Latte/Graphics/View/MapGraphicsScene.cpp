@@ -21,16 +21,13 @@ const GeometryConvertor &MapGraphicsScene::convertor() const {
 }
 
 const IProjection *MapGraphicsScene::projection(){
-    return _proj;
+    return _convertor.projection();
 }
 
 void MapGraphicsScene::setProjection(IProjection *proj){
-    if(_proj)
-        delete _proj;
-    _proj = proj;
-    _convertor.setProjection(_proj);
+    _convertor.setProjection(proj);
     update();
-    setSceneRect(_convertor.bounds(_proj->bounds()));
+    setSceneRect(_convertor.bounds(projection()->bounds()));
     for(QGraphicsItem *item: items()){
         GraphicsItem *litem = dynamic_cast<GraphicsItem*>(item);
         litem->projectionChanged();

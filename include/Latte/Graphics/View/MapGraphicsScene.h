@@ -14,7 +14,7 @@ class MapGraphicsScene: public QGraphicsScene{
         ~MapGraphicsScene();
 
         const IProjection *projection();
-        void setProjection(IProjection *proj);
+        void setProjection(IProjection *rawProjPtr);
         const GeometryConvertor &convertor() const;
 
         void addItem(QGraphicsItem *item) = delete;
@@ -22,5 +22,4 @@ class MapGraphicsScene: public QGraphicsScene{
 
     private:
         GeometryConvertor _convertor;
-        IProjection *_proj = nullptr; // TODO: make unique
 };

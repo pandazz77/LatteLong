@@ -9,9 +9,9 @@
 
 class GeometryConvertor{
     public:
-        GeometryConvertor(const IProjection *proj=nullptr);
+        GeometryConvertor(IProjection *rawProjPtr=nullptr);
 
-        void setProjection(const IProjection *proj);
+        void setProjection(IProjection *rawProjPtr);
         const IProjection *projection() const;
 
         QPointF point(const LatLng &latlng) const;
@@ -25,6 +25,6 @@ class GeometryConvertor{
         static QPolygonF ensurePolygonOrder(const QPolygonF &poly, bool clockwise);
 
     private:
-        const IProjection *_proj;
+        std::unique_ptr<IProjection> _proj;
         LocalCoordinateSystem lcs;
 };

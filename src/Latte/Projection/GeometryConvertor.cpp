@@ -1,15 +1,15 @@
 #include "Latte/Projection/GeometryConvertor.h"
 
-GeometryConvertor::GeometryConvertor(const IProjection *proj){
+GeometryConvertor::GeometryConvertor(IProjection *proj){
     setProjection(proj);
 }
 
-void GeometryConvertor::setProjection(const IProjection *proj){
-    _proj = proj;
+void GeometryConvertor::setProjection(IProjection *proj){
+    _proj.reset(proj);
 }
 
 const IProjection *GeometryConvertor::projection() const {
-    return _proj;
+    return _proj.get();
 }
 
 QPointF GeometryConvertor::point(const LatLng &pos) const {
