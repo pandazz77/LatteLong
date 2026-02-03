@@ -15,6 +15,8 @@ class GeometryConvertor{
         const IProjection *projection() const;
 
         QPointF point(const LatLng &latlng) const;
+        LatLng point(const QPointF &scenePos) const;
+
         QVector<QPointF> simpleLine(const LineString &line) const;
         QPainterPath line(const LineString &line) const;
         QPainterPath polygon(const Polygon &poly) const;

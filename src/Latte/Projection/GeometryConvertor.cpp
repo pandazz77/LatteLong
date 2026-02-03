@@ -19,6 +19,11 @@ QPointF GeometryConvertor::point(const LatLng &pos) const {
     return lcs.toLocal(projected);
 }
 
+LatLng GeometryConvertor::point(const QPointF &scenePos) const {
+    QPointF global = lcs.fromLocal(scenePos);
+    return _proj->unproject(global);
+}
+
 QVector<QPointF> GeometryConvertor::simpleLine(const LineString &line) const {
     QVector<QPointF> pointVector;
     for(const LatLng &latLng: line){
