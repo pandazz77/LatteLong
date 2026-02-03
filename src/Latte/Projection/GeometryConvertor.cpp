@@ -1,5 +1,7 @@
 #include "Latte/Projection/GeometryConvertor.h"
 
+#include <QDebug>
+
 GeometryConvertor::GeometryConvertor(IProjection *proj){
     setProjection(proj);
 }
@@ -51,6 +53,9 @@ QPainterPath GeometryConvertor::polygon(const Polygon &poly) const {
 }
 
 QRectF GeometryConvertor::bounds(const Bounds &bounds) const {
+    if(bounds.northEast.lng() < bounds.southWest.lng()){
+        qWarning() << "You are trying to use bounds, that crosses antimeridian. Thats not supported!";
+    }
     return QRectF(
         point(bounds.NW()),
         point(bounds.SE())
