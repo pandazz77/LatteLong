@@ -25,7 +25,7 @@ class GraphicsItem : public QGraphicsItem{
         virtual void sceneChanged();
         virtual void projectionChanged();
 
-        void setGPos(const LatLng &geoPos); // set get position
+        void setGPos(const LatLng &geoPos); // set geo position
         LatLng gPos() const; // get geo position
 
         int type() const override;
