@@ -41,11 +41,12 @@ class GraphicsItem : public QGraphicsItem{
         }
 
     protected:
-        using QGraphicsItem::setPos;
-        using QGraphicsItem::setX;
-        using QGraphicsItem::setY;
+        void setPos(const QPointF &pos);
+        void setX(double x);
+        void setY(double y);
 
         void updateScenePos();
+        void updateGeoPos();
 
     private:
         LatLng _geoPos;

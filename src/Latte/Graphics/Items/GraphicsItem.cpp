@@ -26,24 +26,43 @@ void GraphicsItem::addTo(MapGraphicsView *view) {
 }
 
 void GraphicsItem::sceneChanged(){
-    updateScenePos();
+    if(projection() )
+        updateScenePos();
 }
 
 void GraphicsItem::projectionChanged(){
-    updateScenePos();
+    if(projection())
+        updateScenePos();
 }
 
-// CAN BE SOME COLLISION BETWEEN SCENE POS AND GEOPOS
-// TODO: FIX IT
+// CAN BE SOME COLLISION BETWEEN SCENE POS AND GEOPOS, I DIDNT TEST IT WELL
 
 void GraphicsItem::updateScenePos(){
-    setPos(convertor().point(_geoPos));
+    QGraphicsItem::setPos(convertor().point(_geoPos));
+}
+
+void GraphicsItem::updateGeoPos(){
+    _geoPos = convertor().point(pos());
 }
 
 void GraphicsItem::setGPos(const LatLng &geoPos){
     _geoPos = geoPos;
     if(scene())
         updateScenePos();
+}
+
+void GraphicsItem::setPos(const QPointF &pos){
+    QGraphicsItem::setPos(pos);
+    if(scene())
+        updateGeoPos();
+}
+
+void GraphicsItem::setX(double x){
+    setPos({x,y()});
+}
+
+void GraphicsItem::setY(double y){
+    setPos({x(),y});
 }
 
 LatLng GraphicsItem::gPos() const {
