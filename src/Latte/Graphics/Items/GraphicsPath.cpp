@@ -37,8 +37,18 @@ QPainterPath GraphicsPath::projectedPath() const {
 }
 
 void GraphicsPath::updatePathCache(){
-    if(projection())
-        _projectedPathCache = path(projection());
+    if(projection()){
+        /*
+            projected it is QPainterPath in world coordinates.
+            We need to extract topLeft position, set it as a QGraphicsItem pos
+            and translate projected path to it.
+        */
+        QPainterPath projected = path(projection());
+        QRectF bounds = projected.boundingRect();
+        QPointF _pos = bounds.topLeft();
+        setPos(_pos);
+        _projectedPathCache = projected.translated(-_pos);
+    }
 }
 
 void GraphicsPath::sceneChanged() {

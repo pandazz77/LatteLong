@@ -32,6 +32,9 @@ void GraphicsItem::projectionChanged(){
     updateScenePos();
 }
 
+// CAN BE SOME COLLISION BETWEEN SCENE POS AND GEOPOS
+// TODO: FIX IT
+
 void GraphicsItem::updateScenePos(){
     setPos(convertor().point(_geoPos));
 }
