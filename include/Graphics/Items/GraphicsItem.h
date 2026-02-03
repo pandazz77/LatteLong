@@ -30,10 +30,14 @@ class GraphicsItem : public QGraphicsItem{
         int type() const override;
 
         template <typename T> 
-        static T cast(GraphicsItem *item);
+        static T cast(GraphicsItem *item){
+            return qgraphicsitem_cast<T>(item);
+        };
 
         template <typename T>
-        T cast();
+        T cast(){
+            return cast<T>(this);
+        }
 
     protected:
         using QGraphicsItem::setPos;
