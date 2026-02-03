@@ -33,7 +33,7 @@ bool GraphicsPath::contains(const QPointF &point) const {
 }
 
 QPainterPath GraphicsPath::projectedPath() const {
-    return path(projection());
+    return _projectedPathCache;
 }
 
 void GraphicsPath::updatePathCache(){
