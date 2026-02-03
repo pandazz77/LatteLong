@@ -10,7 +10,6 @@ class MapGraphicsView: public QGraphicsView{
         MapGraphicsView(MapGraphicsScene *scene, QWidget *parent = nullptr);
         MapGraphicsView(QWidget *parent = nullptr);
 
-        // QGraphicsScene *scene() const = delete;
         MapGraphicsScene *scene() const;
 
         void setProjection(IProjection *rawProjPtr);

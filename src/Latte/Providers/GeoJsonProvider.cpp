@@ -134,5 +134,7 @@ GraphicsItem *GeoJsonProvider::createItemFromGeometry(QVariantMap map){
     } else if(type==GJ_MULTIPOLY){
         GraphicsMultiPolygon *item = new GraphicsMultiPolygon(fetchMultiGeometry<Polygon>(coords));
         return item;
+    } else {
+        throw std::runtime_error("Unknown geojson feature type: "+type.toStdString());
     }
 }
