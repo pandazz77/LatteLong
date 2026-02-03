@@ -4,8 +4,6 @@
 #include "Latte/Projection/SimpleProjection.h"
 
 MapGraphicsView::MapGraphicsView(MapGraphicsScene *scene, QWidget *parent) : QGraphicsView(scene,parent){
-    scale(1,-1); // rotate Y axis
-
     setDragMode(QGraphicsView::ScrollHandDrag);
 }
 

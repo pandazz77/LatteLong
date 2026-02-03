@@ -13,7 +13,8 @@ const IProjection *GeometryConvertor::projection() const {
 }
 
 QPointF GeometryConvertor::point(const LatLng &pos) const {
-    return _proj->project(pos);
+    QPointF projected = _proj->project(pos);
+    return lcs.toLocal(projected);
 }
 
 QVector<QPointF> GeometryConvertor::simpleLine(const LineString &line) const {

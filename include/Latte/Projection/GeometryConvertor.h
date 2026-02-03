@@ -2,6 +2,7 @@
 
 #include <QPainterPath>
 
+#include "Latte/Projection/LocalCoordinateSystem.h"
 #include "Latte/Projection/IProjection.hpp"
 #include "Latte/Geometry/LineString.h"
 #include "Latte/Geometry/Polygon.h"
@@ -25,4 +26,5 @@ class GeometryConvertor{
 
     private:
         const IProjection *_proj;
+        LocalCoordinateSystem lcs;
 };

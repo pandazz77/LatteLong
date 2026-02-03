@@ -13,6 +13,7 @@ set(SRCS
     src/Latte/Geometry/Bounds.cpp
     src/Latte/Geometry/MultiGeometry.cpp
 
+    src/Latte/Projection/LocalCoordinateSystem.cpp
     src/Latte/Projection/GeometryConvertor.cpp
     src/Latte/Projection/SimpleProjection.cpp
     src/Latte/Projection/Mercator.cpp
@@ -40,6 +41,7 @@ set(HDRS
     include/Latte/Geometry/Bounds.h
     include/Latte/Geometry/MultiGeometry.h
 
+    include/Latte/Projection/LocalCoordinateSystem.h
     include/Latte/Projection/GeometryConvertor.h
     include/Latte/Projection/IProjection.hpp
     include/Latte/Projection/SimpleProjection.h
