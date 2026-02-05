@@ -6,4 +6,26 @@ Crossplatform geographic Qt6 library.
 
 ![geojson_viewer](doc/geojson_viewer.png)
 
-[Examples](tests/)
+[Check out Examples](tests/)
+
+## Dependencies
+- Qt6::Core
+- Qt6::Widgets
+
+## Installation 
+```bash
+mkdir build
+cd build
+cmake .. -DBUILD_SHARED_LIBS=ON
+sudo cmake --build . -j 4 --config Release --target install
+```
+now you will be able to access library with CMake:
+```cmake
+find_package(LatteLong)
+target_link_libraries(YourProject LatteLong::LatteLong)
+```
+
+OR you can pass installation and use library simply by adding this directory with cmake:
+```cmake
+add_subdirectory(./LatteLong)
+```

@@ -5,8 +5,8 @@
 #include <QPushButton>
 #include <QFileDialog>
 
-#include "MapGraphicsView.h"
-#include "GeoJsonProvider.h"
+#include "Latte/Graphics/View/MapGraphicsView.h"
+#include "Latte/Providers/GeoJsonProvider.h"
 
 #include "ProjComboBox.hpp"
 
