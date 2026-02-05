@@ -8,6 +8,10 @@ Crossplatform geographic Qt6 library.
 
 [Check out Examples](tests/)
 
+## Dependencies
+- Qt6::Core
+- Qt6::Widgets
+
 ## Installation 
 ```bash
 mkdir build
