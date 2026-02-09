@@ -21,6 +21,11 @@ bool ZoomControl::handleWheel(QEvent *event){
 
     int sign = wheelEvent->angleDelta().y() < 0 ? -1 : 1;
     double zoom = 1+sign*_factor;
+
+    // idk why transformation anchor ingores for the first time
+    if((int)view()->transformationAnchor()!=(int)_type){
+        view()->setTransformationAnchor((QGraphicsView::ViewportAnchor)_type);
+    }
     
     view()->scale(zoom,zoom);
     return true;
@@ -32,4 +37,13 @@ void ZoomControl::setFactor(double zoomFactor){
 
 double ZoomControl::getFactor() const{
     return _factor;
+}
+
+
+void ZoomControl::setType(ZoomType type){
+    _type = type;
+}
+
+ZoomControl::ZoomType ZoomControl::getType() const{
+    return _type;
 }
