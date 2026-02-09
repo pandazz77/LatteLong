@@ -1,9 +1,8 @@
 #pragma once
 
 #include <QGraphicsView>
-#include <QWheelEvent>
 #include "Latte/Graphics/View/MapGraphicsScene.h"
-
+#include "Latte/Graphics/View/Controls/MapViewControl.h"
 
 class MapGraphicsView: public QGraphicsView{
     public:
@@ -14,12 +13,18 @@ class MapGraphicsView: public QGraphicsView{
 
         void setProjection(IProjection *rawProjPtr);
 
-        const IProjection *projection() const ;
-        const GeometryConvertor &convertor() const ;
+        const IProjection *projection() const;
+        const GeometryConvertor &convertor() const;
+
+        void addControl(MapViewControl *control);
+        void removeControl(MapViewControl *control);
+        QVector<MapViewControl*> controls() const;
 
         void fitBounds();
 
     protected:
-        void wheelEvent(QWheelEvent *event) override;
         void showEvent(QShowEvent *event) override;
+
+    private:
+        QVector<MapViewControl*> _controls;
 };
