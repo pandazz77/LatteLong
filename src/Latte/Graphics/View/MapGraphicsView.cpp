@@ -64,14 +64,16 @@ void MapGraphicsView::addControl(MapViewControl *control){
     control->assignView(this);
     installEventFilter(control);
     viewport()->installEventFilter(control);
+    _controls.insert(control);
 }
 
 void MapGraphicsView::removeControl(MapViewControl *control){
+    _controls.remove(control);
     control->assignView(nullptr);
     removeEventFilter(control);
     viewport()->removeEventFilter(control);
 }
 
-QVector<MapViewControl*> MapGraphicsView::controls() const{
+QSet<MapViewControl*> MapGraphicsView::controls() const{
     return _controls;
 }

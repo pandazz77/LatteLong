@@ -20,9 +20,16 @@ bool ZoomControl::handleWheel(QEvent *event){
     QWheelEvent *wheelEvent = static_cast<QWheelEvent*>(event);
 
     int sign = wheelEvent->angleDelta().y() < 0 ? -1 : 1;
-    double zoomFactor = 0.25;
-    double zoom = 1+sign*zoomFactor;
+    double zoom = 1+sign*_factor;
     
     view()->scale(zoom,zoom);
     return true;
+}
+
+void ZoomControl::setFactor(double zoomFactor){
+    _factor = zoomFactor;
+}
+
+double ZoomControl::getFactor() const{
+    return _factor;
 }

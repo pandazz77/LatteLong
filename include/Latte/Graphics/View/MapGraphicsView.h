@@ -18,7 +18,16 @@ class MapGraphicsView: public QGraphicsView{
 
         void addControl(MapViewControl *control);
         void removeControl(MapViewControl *control);
-        QVector<MapViewControl*> controls() const;
+        QSet<MapViewControl*> controls() const;
+        
+        template<typename TControl>
+        TControl getControlByType(){
+            for(MapViewControl *control: _controls){
+                if(TControl result = dynamic_cast<TControl>(control))
+                    return result;
+            }
+            return nullptr;
+        }
 
         void fitBounds();
 
@@ -26,5 +35,5 @@ class MapGraphicsView: public QGraphicsView{
         void showEvent(QShowEvent *event) override;
 
     private:
-        QVector<MapViewControl*> _controls;
+        QSet<MapViewControl*> _controls;
 };
