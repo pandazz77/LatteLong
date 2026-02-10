@@ -10,6 +10,7 @@
 #include "Latte/Graphics/View/MapGraphicsView.h"
 #include "Latte/Graphics/View/Controls/ClickControl.h"
 #include "Latte/Providers/GeoJsonProvider.h"
+#include "Latte/Graphics/Items/GraphicsPath.h"
 
 #include "ProjComboBox.hpp"
 
@@ -39,6 +40,10 @@ class GeoJsonInspectControl: public ClickControl{
                 QJsonDocument doc = QJsonDocument::fromVariant(props);
                 QByteArray jsonProps = doc.toJson(QJsonDocument::Indented);
 
+                if(GraphicsPath *gpath = dynamic_cast<GraphicsPath*>(item)){
+                    highlight(gpath);
+                }
+
                 if(output){
                     output->clear();
                     output->setText(QString::fromUtf8(jsonProps));
@@ -48,8 +53,28 @@ class GeoJsonInspectControl: public ClickControl{
             return false;
         }
 
+        // highlight GraphicsPath on scene
+        void highlight(GraphicsPath *item){
+            // restore previous
+            if(lastPath){
+                lastPath->setPen(lastPathPen);
+                lastPath->update();
+            }
+
+            QPen pen = item->pen();
+            lastPathPen = pen;
+            lastPath = item;
+
+            pen.setColor(Qt::red);
+            pen.setWidth(5);
+            item->setPen(pen);
+            item->update();
+        }
+
     private:
         QTextBrowser *output = nullptr;
+        GraphicsPath *lastPath = nullptr;
+        QPen lastPathPen;
 };
 
 
