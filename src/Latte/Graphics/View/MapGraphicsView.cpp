@@ -50,7 +50,7 @@ const GeometryConvertor &MapGraphicsView::convertor() const{
 }
 
 void MapGraphicsView::fitBounds(){
-    fitInView(convertor().bounds(projection()->bounds()));
+    fitInView(convertor().bounds(projection()->bounds()),Qt::KeepAspectRatio);
 }
 
 void MapGraphicsView::showEvent(QShowEvent *event) {
