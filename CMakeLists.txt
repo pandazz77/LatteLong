@@ -24,6 +24,7 @@ set(SRCS
 
     src/Latte/Graphics/View/Controls/MapViewControl.cpp
     src/Latte/Graphics/View/Controls/ZoomControl.cpp
+    src/Latte/Graphics/View/Controls/ClickControl.cpp
 
     src/Latte/Graphics/Items/GraphicsItem.cpp
     src/Latte/Graphics/Items/GraphicsShape.cpp
@@ -56,6 +57,7 @@ set(HDRS
 
     include/Latte/Graphics/View/Controls/MapViewControl.h
     include/Latte/Graphics/View/Controls/ZoomControl.h
+    include/Latte/Graphics/View/Controls/ClickControl.h
     
     include/Latte/Graphics/Items/GraphicsItem.h
     include/Latte/Graphics/Items/GraphicsShape.h
