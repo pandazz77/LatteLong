@@ -81,10 +81,12 @@ target_include_directories(${PROJECT_NAME}
         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
 
-
+# ---------------- installation ----------------
 
 include(GNUInstallDirs)
+include(CMakePackageConfigHelpers)
 
+# Setup installation path
 install(TARGETS ${PROJECT_NAME}
     EXPORT LatteLongTargets
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
@@ -92,6 +94,7 @@ install(TARGETS ${PROJECT_NAME}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
+# Setup includes installation
 install(DIRECTORY include/
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
     FILES_MATCHING 
@@ -99,18 +102,35 @@ install(DIRECTORY include/
         PATTERN "*.hpp"
 )
 
+# Setup main collection of targets
 install(EXPORT LatteLongTargets
-    FILE LatteLongConfig.cmake
+    FILE LatteLongTargets.cmake
     NAMESPACE LatteLong::
-    DESTINATION lib/cmake/LatteLong
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/LatteLong
 )
 
-include(CMakePackageConfigHelpers)
+# Generate config
 configure_package_config_file(
     "${CMAKE_CURRENT_SOURCE_DIR}/cmake/LatteLongConfig.cmake.in"
     "${CMAKE_CURRENT_BINARY_DIR}/LatteLongConfig.cmake"
-    INSTALL_DESTINATION lib/cmake/LatteLong
+    INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/LatteLong
 )
+
+# Generate config version
+write_basic_package_version_file(
+    "${CMAKE_CURRENT_BINARY_DIR}/LatteLongConfigVersion.cmake"
+    VERSION ${PROJECT_VERSION}
+    COMPATIBILITY SameMajorVersion
+)
+
+# install configs
+install(FILES
+    "${CMAKE_CURRENT_BINARY_DIR}/LatteLongConfig.cmake"
+    "${CMAKE_CURRENT_BINARY_DIR}/LatteLongConfigVersion.cmake" 
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/LatteLong
+)
+
+# --------------------------------------------------
 
 # ---------------- uninstall target ----------------
 if(NOT TARGET uninstall)

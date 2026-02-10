@@ -1,4 +1,37 @@
+# Main configuration file of LatteLong package
+
 @PACKAGE_INIT@
 
-include("${CMAKE_CURRENT_LIST_DIR}/LatteLongTargets.cmake")
-check_required_components(LatteLong)
+# Include main targets collection (if its exists)
+include("${CMAKE_CURRENT_LIST_DIR}/LatteLongTargets.cmake" 
+        OPTIONAL 
+        RESULT_VARIABLE _found_core)
+
+if(_found_core)
+    set(LatteLong_FOUND TRUE)
+else()
+    # If main package not found, but optional components is requested - setting true (idk is it needed or not)
+    set(LatteLong_FOUND TRUE)
+endif()
+
+
+# Handling requested components
+foreach(_comp ${LatteLong_FIND_COMPONENTS})
+    # Lets try to include component file "LatteLong<Comp>Targets.cmake"
+    include("${CMAKE_CURRENT_LIST_DIR}/LatteLong${_comp}Targets.cmake"
+            OPTIONAL
+            RESULT_VARIABLE _included)
+
+    if(_included)
+        set(LatteLong_${_comp}_FOUND TRUE)
+    else()
+        set(LatteLong_${_comp}_FOUND FALSE)
+
+        # If component was REQUIRED - throw error
+        if(LatteLong_FIND_REQUIRED_${_comp})
+            message(FATAL_ERROR 
+                "Required LatteLong component '${_comp}' was not found.\n"
+                "Make sure the corresponding library is installed.")
+        endif()
+    endif()
+endforeach()
