@@ -69,7 +69,7 @@ find_package(Qt6 REQUIRED COMPONENTS
     Widgets
 )
 
-add_library(${PROJECT_NAME} ${SRCS} ${HDRS})
+add_library(${PROJECT_NAME} SHARED ${SRCS} ${HDRS})
 target_link_libraries(${PROJECT_NAME}
     PUBLIC
         Qt6::Core
