@@ -1,0 +1,5 @@
+@PACKAGE_INIT@
+
+include(CMakeFindDependencyMacro)
+
+find_dependency(SOME_DEPENDENCY SOME_DEPENDENCY_CONFIG REQUIRED)
