@@ -6,6 +6,9 @@ target_link_libraries(ExampleWindow LatteLong)
 
 # ==========================
 
+# GEOJSON VIEWER ===========
 
 add_executable(GeojsonViewer geojson_viewer.cpp ProjComboBox.hpp)
 target_link_libraries(GeojsonViewer LatteLong)
+
+# ==========================

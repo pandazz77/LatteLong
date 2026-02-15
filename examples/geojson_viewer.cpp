@@ -89,7 +89,7 @@ int main(int argc, char *argv[]){
 
     QWidget *window = new QWidget;
     QHBoxLayout *mainLayout = new QHBoxLayout(window);
-    window->resize(800,600);
+    window->resize(1200,600);
     window->setLayout(mainLayout);
     QVBoxLayout *rightLayout = new QVBoxLayout(nullptr);
 
