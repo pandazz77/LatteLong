@@ -10,6 +10,7 @@
 #include "Latte/Graphics/Items/GraphicsPixmap.h"
 #include "Latte/Graphics/Items/GraphicsGroup.h"
 #include "Latte/Graphics/View/MapGraphicsView.h"
+#include "Latte/Graphics/View/Controls/ZoomControl.h"
 #include "Latte/Providers/VectorProvider.h"
 
 #include "simple_dataset.hpp"
@@ -23,6 +24,9 @@ int main(int argc, char *argv[]){
     window->setLayout(new QHBoxLayout(window));
 
     MapGraphicsView *view = new MapGraphicsView(new MapGraphicsScene(),window);
+    ZoomControl *zoom = view->getControlByType<ZoomControl*>();
+    zoom->setFactor(0.05);
+
     window->layout()->addWidget(view);
     window->layout()->addWidget(new ProjComboBox(view));
 
