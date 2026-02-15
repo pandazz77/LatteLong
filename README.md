@@ -8,6 +8,8 @@ Crossplatform geographic Qt6 library.
 
 [Check out Examples](tests/)
 
+[Documentation](doc/doc.md)
+
 ## Dependencies
 - Qt6::Core
 - Qt6::Widgets
