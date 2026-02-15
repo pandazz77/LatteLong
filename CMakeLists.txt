@@ -69,7 +69,14 @@ find_package(Qt6 REQUIRED COMPONENTS
     Widgets
 )
 
-add_library(${PROJECT_NAME} SHARED ${SRCS} ${HDRS})
+option(LATTELONG_SHARED "Build LatteLong as shared library" ON)
+if(LATTELONG_SHARED)
+    set(LIBRARY_TYPE SHARED)
+else()
+    set(LIBRARY_TYPE STATIC)
+endif()
+
+add_library(${PROJECT_NAME} ${LIBRARY_TYPE} ${SRCS} ${HDRS})
 target_link_libraries(${PROJECT_NAME}
     PUBLIC
         Qt6::Core
