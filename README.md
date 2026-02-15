@@ -18,7 +18,7 @@ Crossplatform geographic Qt6 library.
 ```bash
 mkdir build
 cd build
-cmake .. -DBUILD_SHARED_LIBS=ON
+cmake .. -DBUILD_EXAMPLES=OFF
 sudo cmake --build . -j 4 --config Release --target install
 ```
 now you will be able to access library with CMake:
