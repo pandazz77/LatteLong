@@ -11,6 +11,7 @@
 #include "Latte/Graphics/View/Controls/ClickControl.h"
 #include "Latte/Providers/GeoJsonProvider.h"
 #include "Latte/Graphics/Items/GraphicsPath.h"
+#include "Latte/Graphics/Items/GraphicsPixmap.h"
 
 #include "ProjComboBox.hpp"
 
@@ -36,13 +37,14 @@ class GeoJsonInspectControl: public ClickControl{
             auto items = view()->items(xy);
             if(items.size()){
                 QGraphicsItem *item = items[0];
+                if(item==markerHightlighting)
+                    return false;
                 QVariantMap props = item->data(0).toMap();
                 QJsonDocument doc = QJsonDocument::fromVariant(props);
                 QByteArray jsonProps = doc.toJson(QJsonDocument::Indented);
+                GraphicsItem *gitem = dynamic_cast<GraphicsItem*>(item);
 
-                if(GraphicsPath *gpath = dynamic_cast<GraphicsPath*>(item)){
-                    highlight(gpath);
-                }
+                highlight(gitem);
 
                 if(output){
                     output->clear();
@@ -53,14 +55,28 @@ class GeoJsonInspectControl: public ClickControl{
             return false;
         }
 
-        // highlight GraphicsPath on scene
-        void highlight(GraphicsPath *item){
-            // restore previous
+        void highlight(GraphicsItem *item){
+            // disable previous path highlighting
             if(lastPath){
                 lastPath->setPen(lastPathPen);
                 lastPath->update();
             }
 
+            // disable previous marker highlighting
+            if(markerHightlighting){
+                delete markerHightlighting;
+                markerHightlighting = nullptr;
+            }
+            
+            if(GraphicsPath *gpath = dynamic_cast<GraphicsPath*>(item)){
+                highlightPath(gpath);
+            } else if(GraphicsPixmap *gpix = dynamic_cast<GraphicsPixmap*>(item)){
+                highlightMarker(gpix);
+            }
+        }
+
+        // highlight GraphicsPath on scene
+        void highlightPath(GraphicsPath *item){
             QPen pen = item->pen();
             lastPathPen = pen;
             lastPath = item;
@@ -71,10 +87,34 @@ class GeoJsonInspectControl: public ClickControl{
             item->update();
         }
 
+        // highlight GraphicsPixmap on scene
+        void highlightMarker(GraphicsPixmap *item){
+            QSize itemPixSize = item->pixmap().size();
+            constexpr int borderWidth = 5;
+            
+            QSize pixSize = itemPixSize*4;
+            QPixmap pixmap(pixSize);
+            pixmap.fill(Qt::transparent);
+
+            QPainter painter(&pixmap);
+            QPen pen(Qt::red,borderWidth);
+
+            painter.setPen(pen);
+            painter.drawRect(borderWidth,borderWidth,pixSize.width()-borderWidth*2,pixSize.height()-borderWidth*2);
+
+            markerHightlighting = new GraphicsPixmap(pixmap);
+            markerHightlighting->setAnchor({pixmap.height()/2.0,pixmap.width()/2.0});
+            markerHightlighting->setGPos(item->gPos());
+            
+            markerHightlighting->addTo(view());
+        }
+
     private:
         QTextBrowser *output = nullptr;
         GraphicsPath *lastPath = nullptr;
         QPen lastPathPen;
+
+        GraphicsPixmap *markerHightlighting = nullptr;
 };
 
 
