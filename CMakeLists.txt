@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(LatteLong VERSION 0.1.0 LANGUAGES CXX)
+project(LatteLong VERSION 0.2.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -21,6 +21,10 @@ set(SRCS
 
     src/Latte/Graphics/View/MapGraphicsScene.cpp
     src/Latte/Graphics/View/MapGraphicsView.cpp
+
+    src/Latte/Graphics/View/Controls/MapViewControl.cpp
+    src/Latte/Graphics/View/Controls/ZoomControl.cpp
+    src/Latte/Graphics/View/Controls/ClickControl.cpp
 
     src/Latte/Graphics/Items/GraphicsItem.cpp
     src/Latte/Graphics/Items/GraphicsShape.cpp
@@ -50,6 +54,10 @@ set(HDRS
 
     include/Latte/Graphics/View/MapGraphicsScene.h
     include/Latte/Graphics/View/MapGraphicsView.h
+
+    include/Latte/Graphics/View/Controls/MapViewControl.h
+    include/Latte/Graphics/View/Controls/ZoomControl.h
+    include/Latte/Graphics/View/Controls/ClickControl.h
     
     include/Latte/Graphics/Items/GraphicsItem.h
     include/Latte/Graphics/Items/GraphicsShape.h
@@ -69,7 +77,14 @@ find_package(Qt6 REQUIRED COMPONENTS
     Widgets
 )
 
-add_library(${PROJECT_NAME} ${SRCS} ${HDRS})
+option(LATTELONG_SHARED "Build LatteLong as shared library" ON)
+if(LATTELONG_SHARED)
+    set(LIBRARY_TYPE SHARED)
+else()
+    set(LIBRARY_TYPE STATIC)
+endif()
+
+add_library(${PROJECT_NAME} ${LIBRARY_TYPE} ${SRCS} ${HDRS})
 target_link_libraries(${PROJECT_NAME}
     PUBLIC
         Qt6::Core
@@ -81,10 +96,12 @@ target_include_directories(${PROJECT_NAME}
         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
 
-
+# ---------------- installation ----------------
 
 include(GNUInstallDirs)
+include(CMakePackageConfigHelpers)
 
+# Setup installation path
 install(TARGETS ${PROJECT_NAME}
     EXPORT LatteLongTargets
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
@@ -92,6 +109,7 @@ install(TARGETS ${PROJECT_NAME}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
+# Setup includes installation
 install(DIRECTORY include/
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
     FILES_MATCHING 
@@ -99,18 +117,35 @@ install(DIRECTORY include/
         PATTERN "*.hpp"
 )
 
+# Setup main collection of targets
 install(EXPORT LatteLongTargets
-    FILE LatteLongConfig.cmake
+    FILE LatteLongTargets.cmake
     NAMESPACE LatteLong::
-    DESTINATION lib/cmake/LatteLong
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/LatteLong
 )
 
-include(CMakePackageConfigHelpers)
+# Generate config
 configure_package_config_file(
     "${CMAKE_CURRENT_SOURCE_DIR}/cmake/LatteLongConfig.cmake.in"
     "${CMAKE_CURRENT_BINARY_DIR}/LatteLongConfig.cmake"
-    INSTALL_DESTINATION lib/cmake/LatteLong
+    INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/LatteLong
 )
+
+# Generate config version
+write_basic_package_version_file(
+    "${CMAKE_CURRENT_BINARY_DIR}/LatteLongConfigVersion.cmake"
+    VERSION ${PROJECT_VERSION}
+    COMPATIBILITY SameMajorVersion
+)
+
+# install configs
+install(FILES
+    "${CMAKE_CURRENT_BINARY_DIR}/LatteLongConfig.cmake"
+    "${CMAKE_CURRENT_BINARY_DIR}/LatteLongConfigVersion.cmake" 
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/LatteLong
+)
+
+# --------------------------------------------------
 
 # ---------------- uninstall target ----------------
 if(NOT TARGET uninstall)
@@ -127,7 +162,7 @@ endif()
 
 
 
-option(BUILD_TESTS "Build tests" ON)
-if(BUILD_TESTS)
-    add_subdirectory(./tests)
+option(BUILD_EXAMPLES "Build examples" ON)
+if(BUILD_EXAMPLES)
+    add_subdirectory(./examples)
 endif()

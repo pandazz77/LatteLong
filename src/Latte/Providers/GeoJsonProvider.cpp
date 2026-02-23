@@ -81,8 +81,17 @@ GraphicsItem *GeoJsonProvider::processSomeFeature(QVariantMap map){
     else
         qWarning() << "Undefined geojson type:" << type;
     
-    if(map.contains("properties"))
-        result->setData(0,map["properties"]);
+    if(map.contains("properties")){
+        // if it is multigeometry we need to set properties for entire list (temporary solution).
+        // TODO: to do it well we need to create associated data, that can be shared between sub items.
+        if(GraphicsGroup *collection = dynamic_cast<GraphicsGroup*>(result)){
+            for(GraphicsItem *subItem :collection->items()){
+                subItem->setData(0,map["properties"]);
+            }
+        } else {
+            result->setData(0,map["properties"]);
+        }
+    }
 
     return result;
 }

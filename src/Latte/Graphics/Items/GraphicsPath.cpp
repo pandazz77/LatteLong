@@ -20,11 +20,7 @@ void GraphicsPath::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
 }
 
 QPainterPath GraphicsPath::shape() const {
-    QPainterPathStroker stroker;
-    stroker.setWidth(pen().widthF());
-    stroker.setCapStyle(pen().capStyle());
-    stroker.setJoinStyle(pen().joinStyle());
-    return stroker.createStroke(projectedPath());
+    return projectedPath();
 }
 
 
