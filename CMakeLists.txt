@@ -12,6 +12,7 @@ set(SRCS
     src/Latte/Geometry/Polygon.cpp
     src/Latte/Geometry/Bounds.cpp
     src/Latte/Geometry/MultiGeometry.cpp
+    src/Latte/Geometry/Features.cpp
 
     src/Latte/Projection/LocalCoordinateSystem.cpp
     src/Latte/Projection/GeometryConvertor.cpp
@@ -39,11 +40,15 @@ set(SRCS
 )
 
 set(HDRS
+    include/Latte/Utils/Variant.hpp
+    include/Latte/Utils/VariantTree.hpp
+
     include/Latte/Geometry/LatLng.h
     include/Latte/Geometry/LineString.h
     include/Latte/Geometry/Polygon.h
     include/Latte/Geometry/Bounds.h
     include/Latte/Geometry/MultiGeometry.h
+    include/Latte/Geometry/Features.h
 
     include/Latte/Projection/LocalCoordinateSystem.h
     include/Latte/Projection/GeometryConvertor.h
