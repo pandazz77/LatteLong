@@ -18,6 +18,11 @@ class Variant: public std::variant<Types...>{
         }
 
         template<typename T>
+        T& to() {
+            return std::get<T>(*this);
+        }
+
+        template<typename T>
         const T* getIf() const {
             return std::get_if<T>(this);
         }

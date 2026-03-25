@@ -104,4 +104,27 @@ int main(int argc, char *argv[]){
 
     qDebug() << "FeatureCollection:";
     qDebug() << feature_collection;
+
+    
+    // Getting feature properties =============
+    int int_val = feature_point.properties["int_val"].to<int>(); // 0
+    int list_val = feature_point.properties["list"][0].to<int>(); // 1
+    int node_val = feature_point.properties["sub_props"]["sub_prop_int"].to<int>(); // 1
+    
+    assert(int_val==0);
+    assert(list_val==1);
+    assert(node_val==1);
+    // =========================================
+
+    // Setting feature properties ==============
+    feature_point.properties["int_val"] = 77;
+    feature_point.properties["list"][0] = 88;
+    feature_point.properties["sub_props"]["sub_props_int"] = 99;
+
+    assert(feature_point.properties["int_val"].to<int>() == 77);
+    assert(feature_point.properties["list"][0].to<int>() == 88);
+    assert(feature_point.properties["sub_props"]["sub_props_int"].to<int>() == 99);
+    // =========================================
+
+
 }

@@ -15,6 +15,21 @@ template<typename ...Types>
 class VariantTreeValue: public Variant<Types...,VariantTreeNode<Types...>,VariantList<Types...>>{
     public:
         using Variant<Types...,VariantTreeNode<Types...>,VariantList<Types...>>::Variant;
+        
+        VariantTreeValue<Types...> &operator[](int index){
+            return this->template to<VariantList<Types...>>()[index];
+        }
+        const VariantTreeValue &operator[](int index) const{
+            return this->template to<VariantList<Types...>>()[index];
+        }
+
+        VariantTreeValue &operator[](const QString &key){
+            return this->template to<VariantTreeNode<Types...>>()[key];
+        }
+        const VariantTreeValue &operator[](const QString &key) const{
+            return this->template to<VariantTreeNode<Types...>>()[key];
+        }
+        
 };
 
 template<typename ...Types>
