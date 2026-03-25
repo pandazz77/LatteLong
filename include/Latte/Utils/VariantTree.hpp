@@ -16,7 +16,7 @@ class VariantTreeValue: public Variant<Types...,VariantTreeNode<Types...>,Varian
     public:
         using Variant<Types...,VariantTreeNode<Types...>,VariantList<Types...>>::Variant;
         
-        VariantTreeValue<Types...> &operator[](int index){
+        VariantTreeValue &operator[](int index){
             return this->template to<VariantList<Types...>>()[index];
         }
         const VariantTreeValue &operator[](int index) const{
