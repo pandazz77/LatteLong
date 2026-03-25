@@ -27,7 +27,7 @@ QDebug operator<<(QDebug debug,const BFeature::Properties::Node &obj);
 
 class Feature: public BFeature{
     public:
-        using GeometryVar = Variant<
+        using GeometryVariant = Variant<
             LatLng,
             LineString,
             Polygon,
@@ -37,11 +37,11 @@ class Feature: public BFeature{
         >;
 
     public:
-        Feature(GeometryVar geometry, const Properties &properties = {}) : BFeature(properties), geometry(geometry) {
+        Feature(GeometryVariant geometry, const Properties &properties = {}) : BFeature(properties), geometry(geometry) {
 
         }
 
-        GeometryVar geometry;
+        GeometryVariant geometry;
 
 };
 

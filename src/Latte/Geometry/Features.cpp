@@ -51,7 +51,7 @@ QDebug operator<<(QDebug debug,const BFeature::Properties::Node &obj){
 }
 
 // Debug Geometry variant
-QDebug operator<<(QDebug debug,const Feature::GeometryVar &obj){
+QDebug operator<<(QDebug debug,const Feature::GeometryVariant &obj){
     QDebugStateSaver saver(debug);
     std::visit([&debug](auto &&geom){
         debug.nospace() << geom;
