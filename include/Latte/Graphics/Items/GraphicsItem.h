@@ -5,6 +5,7 @@
 #include "Latte/Projection/IProjection.hpp"
 #include "Latte/Graphics/View/MapGraphicsScene.h"
 #include "Latte/Graphics/View/MapGraphicsView.h"
+#include "Latte/Geometry/Features.h"
 
 class GraphicsItem : public QGraphicsItem{
     public:
@@ -24,6 +25,7 @@ class GraphicsItem : public QGraphicsItem{
 
         virtual void sceneChanged();
         virtual void projectionChanged();
+        virtual void dataChanged();
 
         void setGPos(const LatLng &geoPos); // set geo position
         LatLng gPos() const; // get geo position
@@ -39,6 +41,11 @@ class GraphicsItem : public QGraphicsItem{
         T cast(){
             return cast<T>(this);
         }
+
+        
+        QVariant setData(int key, const QVariant &value) = delete;
+
+        Feature::Properties data;
 
     protected:
         void setPos(const QPointF &pos);

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Latte/Graphics/Items/GraphicsItem.h"
-
+#include "Latte/Geometry/Features.h"
 
 class VectorProvider{
     public:
@@ -11,6 +11,8 @@ class VectorProvider{
 
     public:
         VectorProvider();
+
+        FeatureCollection fromFile();
 
         virtual void onNewLayer(GraphicsItem *item,const QVariant &data);
         

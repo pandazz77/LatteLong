@@ -35,6 +35,10 @@ void GraphicsItem::projectionChanged(){
         updateScenePos();
 }
 
+void GraphicsItem::dataChanged(){
+
+}
+
 // CAN BE SOME COLLISION BETWEEN SCENE POS AND GEOPOS, I DIDNT TEST IT WELL
 
 void GraphicsItem::updateScenePos(){

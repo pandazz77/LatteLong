@@ -50,3 +50,5 @@ class VariantTreeNode: public QMap<QString,VariantTreeValue<Types...>>{
 
 template<typename ...Types>
 using VariantTree = VariantTreeNode<Types...>;
+
+using SimpleVariantTree = VariantTree<int,double,bool,QString>;
